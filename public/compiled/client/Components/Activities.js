@@ -8,6 +8,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+//FEATURE HAS NOT BEEN COMPLETED --just a placeholder component for an activity random event generator
+//If an event has been created but without an actual activity, a user should be able to enter
+//random activities into a 'hat'--really just a list--and a function shoudl be able to spit out 
+//a random activity for the group to do.
 var Activities = function (_React$Component) {
   _inherits(Activities, _React$Component);
 
@@ -30,4 +34,4 @@ var Activities = function (_React$Component) {
 
   return Activities;
 }(React.Component);
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uL2NsaWVudC9Db21wb25lbnRzL0FjdGl2aXRpZXMuanN4Il0sIm5hbWVzIjpbIkFjdGl2aXRpZXMiLCJwcm9wcyIsIlJlYWN0IiwiQ29tcG9uZW50Il0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7O0lBQU1BLFU7OztBQUNKLHNCQUFZQyxLQUFaLEVBQW1CO0FBQUE7O0FBQUEsbUhBQ1hBLEtBRFc7QUFFbEI7Ozs7NkJBRVE7QUFDUCxhQUFRO0FBQUE7QUFBQTtBQUFBO0FBQUEsT0FBUjtBQUNEOzs7O0VBUHNCQyxNQUFNQyxTIiwiZmlsZSI6IkFjdGl2aXRpZXMuanMiLCJzb3VyY2VzQ29udGVudCI6WyJjbGFzcyBBY3Rpdml0aWVzIGV4dGVuZHMgUmVhY3QuQ29tcG9uZW50IHtcbiAgY29uc3RydWN0b3IocHJvcHMpIHtcbiAgICBzdXBlcihwcm9wcyk7XG4gIH1cblxuICByZW5kZXIoKSB7XG4gICAgcmV0dXJuICg8ZGl2PkFjdGl2aXRpZXMgVGFiIFN0dWZmIEhlcmU8L2Rpdj4pXG4gIH1cbn0iXX0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL2NsaWVudC9Db21wb25lbnRzL0FjdGl2aXRpZXMuanN4Il0sIm5hbWVzIjpbIkFjdGl2aXRpZXMiLCJwcm9wcyIsIlJlYWN0IiwiQ29tcG9uZW50Il0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7O0FBQUE7QUFDQTtBQUNBO0FBQ0E7SUFDTUEsVTs7O0FBQ0osc0JBQVlDLEtBQVosRUFBbUI7QUFBQTs7QUFBQSxtSEFDWEEsS0FEVztBQUVsQjs7Ozs2QkFFUTtBQUNQLGFBQVE7QUFBQTtBQUFBO0FBQUE7QUFBQSxPQUFSO0FBQ0Q7Ozs7RUFQc0JDLE1BQU1DLFMiLCJmaWxlIjoiQWN0aXZpdGllcy5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vRkVBVFVSRSBIQVMgTk9UIEJFRU4gQ09NUExFVEVEIC0tanVzdCBhIHBsYWNlaG9sZGVyIGNvbXBvbmVudCBmb3IgYW4gYWN0aXZpdHkgcmFuZG9tIGV2ZW50IGdlbmVyYXRvclxuLy9JZiBhbiBldmVudCBoYXMgYmVlbiBjcmVhdGVkIGJ1dCB3aXRob3V0IGFuIGFjdHVhbCBhY3Rpdml0eSwgYSB1c2VyIHNob3VsZCBiZSBhYmxlIHRvIGVudGVyXG4vL3JhbmRvbSBhY3Rpdml0aWVzIGludG8gYSAnaGF0Jy0tcmVhbGx5IGp1c3QgYSBsaXN0LS1hbmQgYSBmdW5jdGlvbiBzaG91ZGwgYmUgYWJsZSB0byBzcGl0IG91dCBcbi8vYSByYW5kb20gYWN0aXZpdHkgZm9yIHRoZSBncm91cCB0byBkby5cbmNsYXNzIEFjdGl2aXRpZXMgZXh0ZW5kcyBSZWFjdC5Db21wb25lbnQge1xuICBjb25zdHJ1Y3Rvcihwcm9wcykge1xuICAgIHN1cGVyKHByb3BzKTtcbiAgfVxuXG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gKDxkaXY+QWN0aXZpdGllcyBUYWIgU3R1ZmYgSGVyZTwvZGl2Pik7XG4gIH1cbn0iXX0=

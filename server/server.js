@@ -20,9 +20,9 @@ const app = express();
 app.use(parser.json());
 
 //serve public folder static files
-app.use(express.static('../public'));
+app.use(express.static(__dirname + '/../public'));
 //serve node_modules via the '/script' virtual file path
-app.use('/scripts', express.static('../node_modules'));
+app.use('/scripts', express.static(__dirname + '/../node_modules'));
 
 app.get('/', function(req, res, next) {
   res.redirect('/homepage.html');
