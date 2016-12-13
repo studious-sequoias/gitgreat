@@ -9,6 +9,12 @@ mysql.createConnection({
 });
 
 //Environment variables
+if (process.env.SQL_DB) {
+  var dbName = process.env.SQL_DB;
+} else {
+  console.log('WARNING: environment variable SQL_DB not defined.  Defaulting to "gitgreat"');
+  var dbName = 'gitgreat';
+}
 if (process.env.SQL_USER) {
   var user = process.env.SQL_USER;
 } else {
@@ -22,7 +28,7 @@ if (process.env.SQL_PASS) {
   var user = '';
 }
 
-var sequelize = new Sequelize('gitgreat', user, pass, {
+var sequelize = new Sequelize(dbName, user, pass, {
   host: 'localhost', dialect: 'mysql'
 });
 
