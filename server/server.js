@@ -6,9 +6,9 @@ const cloudinary = require('cloudinary');
 
 // Wells's cloudinary api key, replace with your own as this key will be deleted soon
 cloudinary.config({
-  cloud_name: 'dhdysf6qc',
-  api_key: '299727653385491',
-  api_secret: 'vshmxkEjzRiylUjrXi20qk67hKA'
+  'cloud_name': process.env.CLOUD_NAME,
+  'api_key': process.env.CLOUD_KEY,
+  'api_secret': process.env.CLOUD_SECRET
 });
 
 const app = express();

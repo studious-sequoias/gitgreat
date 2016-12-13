@@ -8,11 +8,18 @@
 var CronJob = require('cron').CronJob;
 const db = require('../db');
 const dbModels = require('../db/index.js');
+require('dotenv').config();
 
 //I will delete this account information after completion of our Greenfield project, 
 //but you can sign up for a Twilio account here with some amount of free credit: https://www.twilio.com/
-var accountSid = 'AC4d6654e30b96d8216b289b5cdcc918e9'; 
-var authToken = '6f2e5c9ffa8f5d3ba10438c4d0b4d9bf';
+var accountSid = process.env.TWILIO_SID; 
+if (accountSid === 'FILL_ME_IN' || accountSid === undefined) {
+  console.log('Environment variable TWILIO_SID not defined');
+}
+var authToken = process.env.TWILIO_TOKEN;
+if (authToken === 'FILL_ME_IN' || authToken === undefined) {
+  console.log('Environment variable TWILIO_TOKEN not defined');
+}
 
 //Twilio REST API: http://twilio.github.io/twilio-node/
 var client = require('twilio')(accountSid, authToken); 
