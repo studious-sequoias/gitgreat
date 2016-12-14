@@ -6,3 +6,4 @@ public/compiled/
 
 .env
 client/public/bundle.js
+**/.DS_Store
