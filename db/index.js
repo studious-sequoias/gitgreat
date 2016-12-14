@@ -61,13 +61,13 @@ sequelize
   });
 
 var PhotosTable = sequelize.define('photos', {
- url: {
-   type: Sequelize.STRING
- }
+  url: {
+    type: Sequelize.STRING
+  }
 });
 
 
 module.exports.PhotosTable = PhotosTable;
 module.exports.EventTable = EventTable;
-module.exports.ItemListTable = ItemListTable;    
+module.exports.ItemListTable = ItemListTable;
 module.exports.ReminderTable = ReminderTable;
