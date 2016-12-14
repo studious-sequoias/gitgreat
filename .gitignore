@@ -2,6 +2,6 @@ node_modules/
 bower_components/
 *.log
 
-build/
-dist/
-public/compiled
+public/compiled/
+
+.env

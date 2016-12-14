@@ -1,5 +1,6 @@
 var Sequelize = require('sequelize');
 var mysql = require('mysql');
+require('dotenv').config();
 
 mysql.createConnection({
   user: root,
@@ -7,7 +8,27 @@ mysql.createConnection({
   database: 'gitgreat'
 });
 
-var sequelize = new Sequelize('gitgreat', 'root', '', {
+//Environment variables
+if (process.env.SQL_DB) {
+  var dbName = process.env.SQL_DB;
+} else {
+  console.log('WARNING: environment variable SQL_DB not defined.  Defaulting to "gitgreat"');
+  var dbName = 'gitgreat';
+}
+if (process.env.SQL_USER) {
+  var user = process.env.SQL_USER;
+} else {
+  console.log('WARNING: environment variable SQL_USER not defined.  Defaulting to "root"');
+  var user = 'root';
+}
+if (process.env.SQL_PASS) {
+  var pass = process.env.SQL_PASS;
+} else {
+  console.log('WARNING: environment variable SQL_PASS not defined.  Defaulting to ""');
+  var user = '';
+}
+
+var sequelize = new Sequelize(dbName, user, pass, {
   host: 'localhost', dialect: 'mysql'
 });
 

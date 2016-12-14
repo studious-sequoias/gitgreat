@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "compile": "babel . --out-dir public/compiled --presets=es2015,react --ignore=node_modules,compiled,server,db --source-maps inline --watch"
+    "compile": "babel . --out-dir public/compiled --presets=es2015,react --ignore=node_modules,compiled,server,db --source-maps inline --watch &",
+    "start": "nodemon server/server.js 2>&1 | log/.predate.sh | tee -a log/server.log ",
+    "start-blind" : "nodemon server/server.js 2>&1 | log/.predate.sh >> log/server.log & ",
+    "tail": "tail -f log/server.log"
   },
   "repository": {
     "type": "git",
@@ -20,6 +23,7 @@
     "body-parser": "^1.15.2",
     "cloudinary": "^1.4.6",
     "cron": "^1.1.1",
+    "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "morgan": "^1.7.0",
     "multiparty": "^4.1.2",
