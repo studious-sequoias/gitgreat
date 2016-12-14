@@ -1,4 +1,7 @@
 //Child component within EventList (contained within HomepageApp)
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 var EventListEntry = (props) => (
   <div className="listEntry" onClick={() => props.handleEntryClick(props.event)}>
     <strong>{props.event.name}</strong><br />
@@ -7,4 +10,4 @@ var EventListEntry = (props) => (
   </div>
 );
 
-window.EventListEntry = EventListEntry;
+export default EventListEntry;

@@ -1,5 +1,7 @@
 //Child component within the Event Planning component
 //Allows user to navigate between the event planning details
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 var FeatureNavigation = (props) => (
   <div id="eventNav">
@@ -10,4 +12,4 @@ var FeatureNavigation = (props) => (
   </div>
 );
 
-window.FeatureNavigation = FeatureNavigation;
+export default FeatureNavigation;

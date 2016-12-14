@@ -1,5 +1,9 @@
 //Child component within the Event Planning component
 //Allows users to send a reminder for purposes of event planning
+import React from 'react';
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
+
 class Reminders extends React.Component {
   constructor(props) {
     super(props);
@@ -110,4 +114,4 @@ class Reminders extends React.Component {
   }
 }
 
-window.Reminders = Reminders;
+export default Reminders;

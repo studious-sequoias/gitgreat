@@ -1,5 +1,10 @@
 //Child component within HomepageApp
 //Will receive the eventList in an array as a prop and will create EventListEntries for each event
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import EventListEntry from './EventListEntry.jsx';
+
 class EventList extends React.Component {
   constructor(props) {
     super(props);
@@ -58,5 +63,4 @@ class EventList extends React.Component {
   }
 }
 
-
-window.EventList = EventList;
+export default EventList;

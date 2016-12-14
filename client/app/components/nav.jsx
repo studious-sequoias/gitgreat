@@ -1,5 +1,8 @@
 //Child component within the HomepageApp and the CreateEventApp to toggle 
 //between the two App pages.
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 var Nav = () => (
   <div className="nav">
   	<a href='/' className="title">Friends</a>
@@ -9,4 +12,4 @@ var Nav = () => (
   </div>
 );
 
-window.Nav = Nav;
+export default Nav;
