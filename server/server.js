@@ -15,7 +15,7 @@ const app = express();
 app.use(parser.json());
 
 //serve public folder static files
-app.use(express.static(__dirname + '/../public'));
+app.use(express.static(__dirname + '/../client/public'));
 //serve node_modules via the '/script' virtual file path
 app.use('/scripts', express.static(__dirname + '/../node_modules'));
 

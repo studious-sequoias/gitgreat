@@ -1,3 +1,7 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
+
 class Photos extends React.Component {
   constructor(props) {
     super(props);
@@ -88,3 +92,5 @@ class Photos extends React.Component {
             </div>);
   }
 }
+
+export default Photos;
