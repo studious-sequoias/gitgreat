@@ -25,7 +25,7 @@ if (process.env.SQL_PASS) {
   var pass = process.env.SQL_PASS;
 } else {
   console.log('WARNING: environment variable SQL_PASS not defined.  Defaulting to ""');
-  var user = '';
+  var pass = '';
 }
 
 var sequelize = new Sequelize(dbName, user, pass, {
