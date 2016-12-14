@@ -8,7 +8,7 @@ import EventList from './EventList.jsx';
 import EventPlanning from './EventPlanning.jsx';
 import Nav from './Nav.jsx';
 
-class App extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -65,4 +65,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default Home;

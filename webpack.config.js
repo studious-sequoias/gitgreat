@@ -1,7 +1,8 @@
+var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'client/app/HomepageAppIndex.jsx'),
+  entry: path.resolve(__dirname, 'client/app/index.jsx'),
   output: {
     path: path.resolve(__dirname, 'client/public'),
     filename: 'bundle.js'
