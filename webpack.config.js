@@ -7,11 +7,6 @@ module.exports = {
     path: path.resolve(__dirname, 'client/public'),
     filename: 'bundle.js'
   },
-  devServer: {
-    inline: true,
-    contentBase: path.resolve(__dirname, 'client/public'),
-    port: process.env.PORT || 3000
-  },
   module: {
     loaders: [
       {
