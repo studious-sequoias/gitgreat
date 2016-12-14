@@ -2,9 +2,9 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/HomepageApp.jsx';
+import Home from './components/HomepageApp.jsx';
 
 ReactDOM.render(
-  <App />, 
+  <Home />, 
   document.getElementById('HomepageApp') 
 );

@@ -31793,13 +31793,13 @@
 	//Allows users to view events, create and view event planning details
 
 
-	var App = function (_React$Component) {
-	  _inherits(App, _React$Component);
+	var Home = function (_React$Component) {
+	  _inherits(Home, _React$Component);
 
-	  function App(props) {
-	    _classCallCheck(this, App);
+	  function Home(props) {
+	    _classCallCheck(this, Home);
 
-	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
 
 	    _this.state = {
 	      eventList: null,
@@ -31810,7 +31810,7 @@
 	    return _this;
 	  }
 
-	  _createClass(App, [{
+	  _createClass(Home, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      //sends a get request to the server to populate the eventList array in this component's state,
@@ -31863,10 +31863,10 @@
 	    }
 	  }]);
 
-	  return App;
+	  return Home;
 	}(_react2.default.Component);
 
-	exports.default = App;
+	exports.default = Home;
 
 /***/ },
 /* 182 */
