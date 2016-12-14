@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
-import Nav from './nav.jsx';
+import Nav from './Nav.jsx';
 
 
 class CreateEventApp extends React.Component {
