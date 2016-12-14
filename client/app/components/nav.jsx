@@ -6,10 +6,10 @@ import { Link } from 'react-router';
 
 var Nav = () => (
   <div className="nav">
-  	<a href='/' className="title">Friends</a>
-    <a href='/'>Home </a>
+    <Link to="home" className="title" >Friends</Link>
+    <Link to="home" >Home</Link>
     <Link to="create" >Create Event</Link>
-    <a href='#'>Log In</a>
+    <Link to="login" >Log In</Link>
   </div>
 );
 
