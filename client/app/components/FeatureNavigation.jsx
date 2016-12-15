@@ -2,13 +2,14 @@
 //Allows user to navigate between the event planning details
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router';
 
 var FeatureNavigation = (props) => (
   <div id="eventNav">
-    <link to='what-to-bring' >What To Bring</link>
-    <link to='reminders' >Reminders</link>
-    <link to='photos' >Photos</link>
-    <link to='chat' >Chatroom (IP)</link>    
+    <Link to='/what-to-bring' >What To Bring</Link>
+    <Link to='/reminders' >Reminders</Link>
+    <Link to='/photos' >Photos</Link>
+    <Link to='/chat' >Chatroom (IP)</Link>    
   </div>
 );
 

@@ -18,10 +18,10 @@ ReactDOM.render((
       <IndexRoute component={Home}/>
       <Route path="/home" component={Home} />
       <Route path='/event/:eventId' component={EventPlanning}>
-        <Route path='what-to-bring' component={WhatToBring}/>
-        <Route path='activities' component={Activities}/>
-        <Route path='reminders' component={Reminders}/>
-        <Route path='photos' component={Photos}/>
+        <Route path='/what-to-bring' component={WhatToBring}/>
+        <Route path='/activities' component={Activities}/>
+        <Route path='/reminders' component={Reminders}/>
+        <Route path='/photos' component={Photos}/>
       </Route>
       <Route path="/create" component={CreateEventApp} />
     </Route>
