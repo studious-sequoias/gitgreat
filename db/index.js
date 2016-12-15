@@ -32,7 +32,7 @@ var sequelize = new Sequelize(dbName, user, pass, {
   host: 'localhost', dialect: 'mysql'
 });
 
-var EventTable = sequelize.define('events', {
+var EventsTable = sequelize.define('events', {
   name: {
     type: Sequelize.STRING
   },
@@ -44,7 +44,7 @@ var EventTable = sequelize.define('events', {
   }
 });
 
-var ItemListTable = sequelize.define('itemlists', {
+var ItemsTable = sequelize.define('items', {
   item: {
     type: Sequelize.STRING
   },
@@ -56,7 +56,7 @@ var ItemListTable = sequelize.define('itemlists', {
   },
 });
 
-var ReminderTable = sequelize.define('reminders', {
+var RemindersTable = sequelize.define('reminders', {
   phoneNumber: {
     type: Sequelize.INTEGER
   },
@@ -68,9 +68,52 @@ var ReminderTable = sequelize.define('reminders', {
   },
 });
 
+var PhotosTable = sequelize.define('photos', {
+  url: {
+    type: Sequelize.STRING
+  }
+});
+
+// *************** newly added *****************:
+var UsersTable = sequelize.define('users', {
+  name: {
+    type: Sequelize.STRING
+  },
+  e_mail: {
+    type: Sequelize.STRING
+  },
+  userName: {
+    type: Sequelize.STRING
+  },
+  phoneNumber: {
+    type: Sequelize.STRING
+  },
+  password: {
+    type: Sequelize.STRING
+  }
+});
+
+var MessagesTable = sequelize.define('messages', {
+  message: {
+    type: Sequelize.STRING
+  }
+});
+
+var UsersEventsTable = sequelize.define('users_events', {
+  
+});
+
 //Create associations such that ItemListTable and ReminderTable contain eventId
 ItemListTable.belongsTo(EventTable);
 ReminderTable.belongsTo(EventTable);
+
+// *************** newly added *****************:
+PhotosTable.belongsTo(EventTable);
+ChatTable.belongsTo(EventTable);
+ChatTable.belongsTo(UserTable);
+UsersEventTable.belongsTo(EventTable);
+UsersEventTable.belongsTo(UserTable);
+
 
 sequelize
   .authenticate()
@@ -81,14 +124,19 @@ sequelize
     console.log('Unable to connect to the database:', err);
   });
 
-var PhotosTable = sequelize.define('photos', {
-  url: {
-    type: Sequelize.STRING
-  }
-});
 
 
 module.exports.PhotosTable = PhotosTable;
-module.exports.EventTable = EventTable;
-module.exports.ItemListTable = ItemListTable;
-module.exports.ReminderTable = ReminderTable;
+module.exports.EventsTable = EventsTable;
+module.exports.ItemsTable = ItemsTable;
+module.exports.RemindersTable = RemindersTable;
+
+// *************** newly added *****************:
+module.exports.UsersTable = UsersTable;
+module.exports.MessagesTable = MessagesTable;
+module.exports.UsersEventsTable = UsersEventsTable;
+
+
+
+
+
