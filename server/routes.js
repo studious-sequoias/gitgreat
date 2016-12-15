@@ -19,4 +19,8 @@ module.exports = function (app, express) {
 
   app.post('/uploadImage', photosController.uploadImage);
   app.get('/displayImages', photosController.displayImages);
+
+  app.get('*', function (req, res) {
+    res.redirect('/');
+  });
 };
