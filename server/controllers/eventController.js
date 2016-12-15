@@ -7,14 +7,14 @@ module.exports = {
     res.redirect('/createEvent.html');
   },
 
-  eventTablePost: function(req, res, next) {
-    dbModels.EventTable
+  eventsTablePost: function(req, res, next) {
+    dbModels.EventsTable
       .create({
         name: req.body.name,
         where: req.body.where,
         when: req.body.when
       })
-      .then(function(event) {
+      .then(function(events) {
         res.redirect('/');
       })
       .catch(function(err) {
@@ -22,8 +22,8 @@ module.exports = {
       });
   },
 
-  eventTableGet: function(req, res, next) {
-    dbModels.EventTable.findAll({order: [['when', 'DESC']]})
+  eventsTableGet: function(req, res, next) {
+    dbModels.EventsTable.findAll({order: [['when', 'DESC']]})
       .then(function(events) {
         utils.sendResponse(res, 200, 'application/json', events);
       });

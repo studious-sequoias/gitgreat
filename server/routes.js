@@ -8,11 +8,11 @@ module.exports = function (app, express) {
   app.get('/', homeController.homepage);
   app.get('/create', eventController.createEvent);
 
-  app.post('/eventTable', eventController.eventTablePost);
-  app.get('/eventTable', eventController.eventTableGet);
+  app.post('/eventTable', eventController.eventsTablePost);
+  app.get('/eventTable', eventController.eventsTableGet);
 
-  app.post('/itemList', itemListController.itemListPost);
-  app.get('/itemList', itemListController.itemListGet);
+  app.post('/itemList', itemListController.itemsPost);
+  app.get('/itemList', itemListController.itemsGet);
 
   app.post('/reminders', remindersController.remindersPost);
   app.get('/reminders', remindersController.remindersGet);
