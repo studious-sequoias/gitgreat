@@ -104,15 +104,15 @@ var UsersEventsTable = sequelize.define('users_events', {
 });
 
 //Create associations such that ItemListTable and ReminderTable contain eventId
-ItemListTable.belongsTo(EventTable);
-ReminderTable.belongsTo(EventTable);
+ItemsTable.belongsTo(EventsTable);
+RemindersTable.belongsTo(EventsTable);
 
 // *************** newly added *****************:
-PhotosTable.belongsTo(EventTable);
-ChatTable.belongsTo(EventTable);
-ChatTable.belongsTo(UserTable);
-UsersEventTable.belongsTo(EventTable);
-UsersEventTable.belongsTo(UserTable);
+PhotosTable.belongsTo(EventsTable);
+MessagesTable.belongsTo(EventsTable);
+MessagesTable.belongsTo(UsersTable);
+UsersEventsTable.belongsTo(EventsTable);
+UsersEventsTable.belongsTo(UsersTable);
 
 
 sequelize
