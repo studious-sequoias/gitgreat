@@ -4,6 +4,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
+import { browserHistory } from 'react-router';
+
 class Reminders extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +28,7 @@ class Reminders extends React.Component {
   fetchReminders() {
     //The event name is passed along to the server via query parameters 
     //so that we can display reminders associated with a specific event.
-    var eventParam = this.props.featuredEvent.name.split(' ').join('_');
+    var eventParam = browserHistory.event.name.split(' ').join('_');
     var successHandler = function(data) {
       this.setState({reminders: data});
     };
@@ -53,7 +55,7 @@ class Reminders extends React.Component {
     var successHandler = function() {
       $('#msg').text('reminder successfully posted');
     };
-    var eventParam = this.props.featuredEvent.name.split(' ').join('_');
+    var eventParam = browserHistory.event.name.split(' ').join('_');
     $.ajax({
       method: 'POST',
       url: '/reminders?eventName=' + eventParam,
