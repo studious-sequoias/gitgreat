@@ -11,6 +11,14 @@ module.exports = function (app, express) {
   app.post('/eventTable', eventController.eventsTablePost);
   app.get('/eventTable', eventController.eventsTableGet);
 
+  app.get('/api/events', eventController.getEvents);
+  app.post('/api/events', eventController.addEvent);
+  app.get('/api/events/name/:eventName', eventController.getEventByName);
+  app.get('/api/events/id/:eventId', eventController.getEventById);
+  app.get('/api/events/id/:eventId/people', eventController.getPeople);
+  app.post('/api/events/people', eventController.addPerson);
+
+
   app.post('/itemList', itemListController.itemsPost);
   app.get('/itemList', itemListController.itemsGet);
 
