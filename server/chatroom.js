@@ -1,8 +1,4 @@
-var messages = [];
 var dbModels = require('../db/index.js');
-
-
-
 
 module.exports = function(io) {
   return function(socket) {
@@ -13,8 +9,8 @@ module.exports = function(io) {
       console.log('user disconnected');
     });
 
+    //Store new message
     socket.on('msgreq:msg', function(msg) {
-      messages.push(msg);
       dbModels.MessagesTable.create({
         message: msg
       })
@@ -27,10 +23,19 @@ module.exports = function(io) {
       });
     });
 
+    // Get all chat messages
     socket.on('msgreq:all', function() {
-      dbModels.MessagesTable.find({})
+      dbModels.MessagesTable.findAll({})
       .then(function(resp) {
-        io.emit('msgres:all', resp);
+        var msg = resp.reduce(function(arr, item) {
+          arr.push({
+            username: item.userId,
+            message: item.message
+          });
+          return arr;
+        }, []);
+        console.log(msg, 'ALL MESSAGES SERVER SIDE');
+        io.emit('msgres:all', msg);
       });
     });
   };

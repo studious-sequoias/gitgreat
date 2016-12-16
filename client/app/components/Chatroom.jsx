@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
 import io from 'socket.io-client';
-let socket = io('http://localhost:3000');
+let socket = io('http://localhost:4000');
 
 class Chatroom extends React.Component {
   constructor(props) {
@@ -28,7 +28,6 @@ class Chatroom extends React.Component {
     socket.emit('msgreq:all');
 
     socket.on('msgres:all', function(msgs) {
-      console.log(msgs, 'ALL MESSAGES');
       this.setState({
         allMessages: msgs
       });
@@ -53,14 +52,14 @@ class Chatroom extends React.Component {
         <ul className="chat">
           {
             this.state.allMessages.map(function(item) {
-              return <li key={item}>{item}</li>;
+              return <li key={item.message}>{item.username}: {item.message}</li>;
             })
           }
         </ul>
-      <form onSubmit={this.sendMsg}>
-        <input value={this.state.msgInput} onChange={this.inputChangeHandler}/>
-        <input type="submit"/>
-      </form>
+        <form onSubmit={this.sendMsg}>
+          <input value={this.state.msgInput} onChange={this.inputChangeHandler}/>
+          <input type="submit"/>
+        </form>
       </div>
     );
   }

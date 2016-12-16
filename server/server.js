@@ -32,8 +32,12 @@ if (process.env.PORT) {
   console.log('WARNING: environment variable PORT not defined.  Defaulting to 3000');
   var port = 3000;
 }
-http.listen(port, function() {
+app.listen(port, function() {
   console.log('Server is listening on port', port);
+});
+
+http.listen(4000, function() {
+  console.log('Server is listening on port', 4000);
 });
 
 io.on('connection', require('./chatroom.js')(io)); // chatroom
