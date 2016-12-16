@@ -14,6 +14,9 @@ cloudinary.config({
 const app = express();
 app.use(parser.json());
 
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 //serve public folder static files
 app.use(express.static(__dirname + '/../client/public'));
 //serve node_modules via the '/script' virtual file path
@@ -32,5 +35,11 @@ if (process.env.PORT) {
 app.listen(port, function() {
   console.log('Server is listening on port', port);
 });
+
+http.listen(4000, function() {
+  console.log('Server is listening on port', 4000);
+});
+
+io.on('connection', require('./chatroom.js')(io)); // chatroom
 
 module.exports = app;

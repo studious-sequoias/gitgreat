@@ -41,16 +41,16 @@ class Home extends React.Component {
 
   render() {
     var view;
-    //view logic: if an event has been clicked on, then the page should view 
-    //the eventDetails page--the EventPlanning component. Otherwise, show the 
+    //view logic: if an event has been clicked on, then the page should view
+    //the eventDetails page--the EventPlanning component. Otherwise, show the
     //homepage--the EventList component.
     if (this.state.page === 'homepage') {
-      view = 
+      view =
         (<div>
           <EventList
             eventData={this.state.eventList}
             handleEntryClick={this.handleEntryClick}
-          />;
+          />
         </div>);
     } else if (this.state.page === 'eventDetails') {
       view = <EventPlanning featuredEvent={this.state.featuredEvent}/>;

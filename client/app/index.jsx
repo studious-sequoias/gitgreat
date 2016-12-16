@@ -11,6 +11,7 @@ import WhatToBring from './components/WhatToBring.jsx';
 import Activities from './components/Activities.jsx';
 import Reminders from './components/Reminders.jsx';
 import Photos from './components/Photos.jsx';
+import Chatroom from './components/Chatroom.jsx';
 
 ReactDOM.render((
   <Router history={browserHistory}>
@@ -22,6 +23,7 @@ ReactDOM.render((
         <Route path='/activities' component={Activities}/>
         <Route path='/reminders' component={Reminders}/>
         <Route path='/photos' component={Photos}/>
+        <Route path='/chat' component={Chatroom}/>
       </Route>
       <Route path="/create" component={CreateEventApp} />
     </Route>

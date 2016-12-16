@@ -6,10 +6,10 @@ import { Link } from 'react-router';
 
 var Nav = () => (
   <div className="nav">
-    <Link to="home" className="title" >Friends</Link>
-    <Link to="home" >Home</Link>
-    <Link to="create" >Create Event</Link>
-    <Link to="login" >Log In</Link>
+    <Link to="/home" className="title" >FRIENDS</Link>
+    <Link to="/home" >Home</Link>
+    <Link to="/create" >Create Event</Link>
+    <Link to="/login" >Log In</Link>
   </div>
 );
 

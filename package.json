@@ -7,7 +7,7 @@
     "start": "nodemon server/server.js 2>&1 | log/.predate.sh | tee -a log/server.log ",
     "start-blind": "nodemon server/server.js 2>&1 | log/.predate.sh >> log/server.log & ",
     "tail": "tail -f log/server.log",
-    "build": "webpack"
+    "build": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "sequelize": "^3.27.0",
+    "socket.io": "^1.7.2",
     "sqlite": "^2.2.3",
     "sqlite3": "^3.1.8",
     "textbelt": "0.0.3",

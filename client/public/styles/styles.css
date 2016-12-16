@@ -156,3 +156,16 @@ td, th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+
+/* * * * * * * * * *
+ *                 *
+ *   Chatroom      *
+ *                 *
+ * * * * * * * * * */
+
+.chat {
+  list-style-type: none;
+}
+
+
