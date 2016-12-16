@@ -3,6 +3,7 @@ var homeController = require('./controllers/homeController.js');
 var itemListController = require('./controllers/itemListController.js');
 var remindersController = require('./controllers/remindersController.js');
 var photosController = require('./controllers/photosController.js');
+var usersController = require('./controllers/usersController.js');
 
 module.exports = function (app, express) {
   app.get('/', homeController.homepage);
@@ -18,6 +19,7 @@ module.exports = function (app, express) {
   app.get('/api/events/id/:eventId/people', eventController.getPeople);
   app.post('/api/events/people', eventController.addPerson);
 
+  app.get('/api/users/name/:userName', usersController.getUserByName);
 
   app.post('/itemList', itemListController.itemsPost);
   app.get('/itemList', itemListController.itemsGet);

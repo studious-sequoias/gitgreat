@@ -69,18 +69,15 @@ module.exports = {
     // dbModels.UsersTable.findAll({include: {model: [dbModels.UsersEventsTable], through: {attributes: ['eventId'], where: {eventId: req.params.eventId}}}})
     dbModels.con.query('SELECT u.* FROM users_events ue LEFT JOIN users u ON ue.userId = u.id WHERE ue.eventId = ' + req.params.eventId, {model: dbModels.UsersTable})
       .then(function(event) {
-        console.log(event);
         res.send(event);
       });
   },
 
   addPerson: function(req, res, next) {
-    console.log(req.body.userId, req.body.eventId);
     dbModels.UsersEventsTable.create({
       userId: req.body.userId,
       eventId: req.body.eventId
     }).then(function(data) {
-      console.log(data);
       res.send(data);
     });
   }
