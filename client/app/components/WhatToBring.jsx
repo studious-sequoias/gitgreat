@@ -3,6 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import { browserHistory } from 'react-router';
 
 class WhatToBring extends React.Component {
   constructor(props) {
@@ -24,9 +25,9 @@ class WhatToBring extends React.Component {
   }
 
   fetchItems() {
-      //The event name is passed along to the server via query parameters 
+    //The event name is passed along to the server via query parameters 
     //so that we can display the itemlist associated with a specific event
-    var eventParam = this.props.featuredEvent.name.split(' ').join('_');
+    var eventParam = browserHistory.event.name.split(' ').join('_');
     var successHandler = function(data) {
       this.setState({itemList: data});
     };
@@ -48,7 +49,7 @@ class WhatToBring extends React.Component {
     var successHandler = function(data) {
       this.fetchItems();
     };
-    var eventParam = this.props.featuredEvent.name.split(' ').join('_');
+    var eventParam = browserHistory.event.name.split(' ').join('_');
     $.ajax({
       method: 'POST',
       url: '/itemList?eventName=' + eventParam,

@@ -94,11 +94,15 @@ label {
   padding: 10px;
 }
 
-#eventNav > #firstBtn {
-  margin-left: 29%;
+#eventNav-sub {
+  display: inline-block;
+  position: relative;
+  left: 30%;
+  margin: 0 auto;
 }
 
-#eventNav > button {
+#eventNav .button {
+  text-decoration: none;
   color: #404040;
   outline: none;
   font-size: 15px;
@@ -106,6 +110,10 @@ label {
   outline: none;
   background: none;
   border: none;
+}
+
+#eventNav .button:hover {
+  text-decoration: underline;
 }
 
 #createEvent {
