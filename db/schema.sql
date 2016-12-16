@@ -39,7 +39,7 @@ CREATE TABLE `items` (
   `cost` VARCHAR(60) NULL DEFAULT NULL,
   `createdAt` VARCHAR(60) NULL DEFAULT NULL,
   `updatedAt` VARCHAR(60) NULL DEFAULT NULL,
-  `id_events` INTEGER NULL DEFAULT NULL,
+  `eventId` INTEGER NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -56,8 +56,8 @@ CREATE TABLE `reminders` (
   `msg` VARCHAR(200) NULL DEFAULT NULL,
   `when` VARCHAR(60) NULL DEFAULT NULL,
   `updatedAt` VARCHAR(60) NULL DEFAULT NULL,
-  `id_events` INTEGER NULL DEFAULT NULL,
-  `created_at` VARCHAR(40) NULL DEFAULT NULL,
+  `eventId` INTEGER NULL DEFAULT NULL,
+  `createdAt` VARCHAR(40) NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -73,7 +73,7 @@ CREATE TABLE `photos` (
   `url` VARCHAR(250) NULL DEFAULT NULL,
   `createdAt` VARCHAR(60) NULL DEFAULT NULL,
   `updatedAt` VARCHAR(60) NULL DEFAULT NULL,
-  `id_events` INTEGER NULL DEFAULT NULL,
+  `eventId` INTEGER NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -87,7 +87,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` INTEGER AUTO_INCREMENT,
   `name` VARCHAR(40) NULL DEFAULT NULL,
-  `e_mail` VARCHAR(40) NULL DEFAULT NULL,
+  `email` VARCHAR(40) NULL DEFAULT NULL,
   `userName` VARCHAR(30) NULL DEFAULT NULL,
   `phoneNumber` VARCHAR(20) NULL DEFAULT NULL,
   `password` VARCHAR(40) NULL DEFAULT NULL,
@@ -104,8 +104,8 @@ DROP TABLE IF EXISTS `messages`;
 CREATE TABLE `messages` (
   `id` INTEGER AUTO_INCREMENT,
   `message` VARCHAR(300) NULL DEFAULT NULL,
-  `id_event` INTEGER NULL DEFAULT NULL,
-  `id_users` INTEGER NULL DEFAULT NULL,
+  `eventId` INTEGER NULL DEFAULT NULL,
+  `userId` INTEGER NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -118,8 +118,8 @@ DROP TABLE IF EXISTS `users_events`;
     
 CREATE TABLE `users_events` (
   `id` INTEGER AUTO_INCREMENT,
-  `id_users` INTEGER NULL DEFAULT NULL,
-  `id_event` INTEGER NULL DEFAULT NULL,
+  `userId` INTEGER NULL DEFAULT NULL,
+  `eventId` INTEGER NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) COMMENT 'Joint table';
 
@@ -127,13 +127,13 @@ CREATE TABLE `users_events` (
 -- Foreign Keys 
 -- ---
 
-ALTER TABLE `items` ADD FOREIGN KEY (id_events) REFERENCES `events` (`id`);
-ALTER TABLE `reminders` ADD FOREIGN KEY (id_events) REFERENCES `events` (`id`);
-ALTER TABLE `photos` ADD FOREIGN KEY (id_events) REFERENCES `events` (`id`);
-ALTER TABLE `messages` ADD FOREIGN KEY (id_event) REFERENCES `events` (`id`);
-ALTER TABLE `messages` ADD FOREIGN KEY (id_users) REFERENCES `users` (`id`);
-ALTER TABLE `users_events` ADD FOREIGN KEY (id_users) REFERENCES `users` (`id`);
-ALTER TABLE `users_events` ADD FOREIGN KEY (id_event) REFERENCES `events` (`id`);
+ALTER TABLE `items` ADD FOREIGN KEY (eventId) REFERENCES `events` (`id`);
+ALTER TABLE `reminders` ADD FOREIGN KEY (eventId) REFERENCES `events` (`id`);
+ALTER TABLE `photos` ADD FOREIGN KEY (eventId) REFERENCES `events` (`id`);
+ALTER TABLE `messages` ADD FOREIGN KEY (eventId) REFERENCES `events` (`id`);
+ALTER TABLE `messages` ADD FOREIGN KEY (userId) REFERENCES `users` (`id`);
+ALTER TABLE `users_events` ADD FOREIGN KEY (userId) REFERENCES `users` (`id`);
+ALTER TABLE `users_events` ADD FOREIGN KEY (eventId) REFERENCES `events` (`id`);
 
 -- ---
 -- Table Properties
@@ -153,17 +153,17 @@ ALTER TABLE `users_events` ADD FOREIGN KEY (id_event) REFERENCES `events` (`id`)
 
 -- INSERT INTO `events` (`id`,`name`,`where`,`when`,`createdAt`,`updatedAt`) VALUES
 -- ('','','','','','');
--- INSERT INTO `items` (`id`,`item`,`owner`,`cost`,`createdAt`,`updatedAt`,`id_events`) VALUES
+-- INSERT INTO `items` (`id`,`item`,`owner`,`cost`,`createdAt`,`updatedAt`,`eventId`) VALUES
 -- ('','','','','','','');
--- INSERT INTO `reminders` (`id`,`phoneNumber`,`msg`,`when`,`updatedAt`,`id_events`,`created_at`) VALUES
+-- INSERT INTO `reminders` (`id`,`phoneNumber`,`msg`,`when`,`updatedAt`,`eventId`,`createdAt`) VALUES
 -- ('','','','','','','');
--- INSERT INTO `photos` (`id`,`url `,`createdAt`,`updatedAt`,`id_events`) VALUES
+-- INSERT INTO `photos` (`id`,`url `,`createdAt`,`updatedAt`,`eventId`) VALUES
 -- ('','','','','');
--- INSERT INTO `users` (`id`,`name`,`e_mail`,`userName`,`phoneNumber`,`password`) VALUES
+-- INSERT INTO `users` (`id`,`name`,`email`,`userName`,`phoneNumber`,`password`) VALUES
 -- ('','','','','','');
--- INSERT INTO `messages` (`id`,`message`,`id_event`,`id_users`) VALUES
+-- INSERT INTO `messages` (`id`,`message`,`eventId`,`userId`) VALUES
 -- ('','','','');
--- INSERT INTO `users_events` (`id`,`id_users`,`id_event`) VALUES
+-- INSERT INTO `users_events` (`id`,`userId`,`eventId`) VALUES
 -- ('','','');
 
 

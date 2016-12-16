@@ -6,10 +6,12 @@ import { Link } from 'react-router';
 
 var FeatureNavigation = (props) => (
   <div id="eventNav">
-    <Link to='/what-to-bring' >What To Bring</Link>
-    <Link to='/reminders' >Reminders</Link>
-    <Link to='/photos' >Photos</Link>
-    <Link to='/chat' >Chatroom (IP)</Link>    
+    <div id="eventNav-sub">
+      <Link to='/what-to-bring' className="button wtbBtn">What To Bring</Link>
+      <Link to='/reminders' className="button reminderBtn">Reminders</Link>
+      <Link to='/photos' className="button photosBtn">Photos</Link>
+      <Link to='/chat' className="button chatBtn">Chatroom (IP)</Link>    
+    </div>
   </div>
 );
 

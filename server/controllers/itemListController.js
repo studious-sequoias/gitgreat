@@ -6,10 +6,10 @@ module.exports = {
 
   itemsPost: function(req, res, next) {
     var eventName = url.parse(req.url).query.slice(10).split('_').join(' ');
-    dbModels.EventTable.findOne({where: {name: eventName}})
+    dbModels.EventsTable.findOne({where: {name: eventName}})
       .then(function(event) {
         var eventId = event.id;
-        dbModels.itemsTable
+        dbModels.ItemsTable
         .create({
           item: req.body.item,
           owner: req.body.owner,
@@ -26,10 +26,10 @@ module.exports = {
 
   itemsGet: function(req, res, next) {
     var eventName = url.parse(req.url).query.slice(10).split('_').join(' ');
-    dbModels.EventTable.findOne({where: {name: eventName}})
+    dbModels.EventsTable.findOne({where: {name: eventName}})
       .then(function(event) {
         var eventId = event.id;
-        dbModels.itemsTable.findAll({where: {eventId: eventId}})
+        dbModels.ItemsTable.findAll({where: {eventId: eventId}})
           .then(function(items) {
             utils.sendResponse(res, 200, 'application/json', items);
           });

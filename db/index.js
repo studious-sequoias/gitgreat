@@ -79,7 +79,7 @@ var UsersTable = sequelize.define('users', {
   name: {
     type: Sequelize.STRING
   },
-  e_mail: {
+  email: {
     type: Sequelize.STRING
   },
   userName: {

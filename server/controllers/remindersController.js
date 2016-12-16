@@ -6,10 +6,10 @@ module.exports = {
 
   remindersPost: function(req, res, next) {
     var eventName = url.parse(req.url).query.slice(10).split('_').join(' ');
-    dbModels.EventTable.findOne({where: {name: eventName}})
+    dbModels.EventsTable.findOne({where: {name: eventName}})
       .then(function(event) {
         var eventId = event.id;
-        dbModels.ReminderTable
+        dbModels.RemindersTable
         .create({
           phoneNumber: req.body.phoneNumber,
           msg: req.body.msg,
@@ -26,10 +26,10 @@ module.exports = {
 
   remindersGet: function(req, res, next) {
     var eventName = url.parse(req.url).query.slice(10).split('_').join(' ');
-    dbModels.EventTable.findOne({where: {name: eventName}})
+    dbModels.EventsTable.findOne({where: {name: eventName}})
       .then(function(event) {
         var eventId = event.id;
-        dbModels.ReminderTable.findAll({where: {eventId: eventId}})
+        dbModels.RemindersTable.findAll({where: {eventId: eventId}})
           .then(function(reminders) {
             utils.sendResponse(res, 200, 'application/json', reminders);
           });
