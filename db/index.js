@@ -100,7 +100,12 @@ var MessagesTable = sequelize.define('messages', {
 });
 
 var UsersEventsTable = sequelize.define('users_events', {
-  
+  userId: {
+    type: Sequelize.INTEGER
+  },
+  eventId: {
+    type: Sequelize.INTEGER
+  }
 });
 
 //Create associations such that ItemListTable and ReminderTable contain eventId
@@ -113,6 +118,8 @@ MessagesTable.belongsTo(EventsTable);
 MessagesTable.belongsTo(UsersTable);
 UsersEventsTable.belongsTo(EventsTable);
 UsersEventsTable.belongsTo(UsersTable);
+UsersTable.hasMany(UsersEventsTable);
+EventsTable.hasMany(UsersEventsTable);
 
 
 sequelize
@@ -135,6 +142,7 @@ module.exports.RemindersTable = RemindersTable;
 module.exports.UsersTable = UsersTable;
 module.exports.MessagesTable = MessagesTable;
 module.exports.UsersEventsTable = UsersEventsTable;
+module.exports.con = sequelize;
 
 
 

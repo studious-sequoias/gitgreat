@@ -12,6 +12,7 @@ import Activities from './components/Activities.jsx';
 import Reminders from './components/Reminders.jsx';
 import Photos from './components/Photos.jsx';
 import Chatroom from './components/Chatroom.jsx';
+import PeopleList from './components/PeopleList.jsx';
 
 ReactDOM.render((
   <Router history={browserHistory}>
@@ -19,11 +20,13 @@ ReactDOM.render((
       <IndexRoute component={Home}/>
       <Route path="/home" component={Home} />
       <Route path='/event/:eventId' component={EventPlanning}>
+        <IndexRoute component={PeopleList}/>
         <Route path='/what-to-bring' component={WhatToBring}/>
         <Route path='/activities' component={Activities}/>
         <Route path='/reminders' component={Reminders}/>
         <Route path='/photos' component={Photos}/>
         <Route path='/chat' component={Chatroom}/>
+        <Route path='/people' component={PeopleList}/>
       </Route>
       <Route path="/create" component={CreateEventApp} />
     </Route>
