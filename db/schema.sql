@@ -10,11 +10,11 @@ USE `gitgreat`;
 
 -- ---
 -- Table 'events'
--- 
+--
 -- ---
 
 DROP TABLE IF EXISTS `events`;
-    
+
 CREATE TABLE `events` (
   `id` INTEGER AUTO_INCREMENT,
   `name` VARCHAR(60) NULL DEFAULT NULL,
@@ -27,11 +27,11 @@ CREATE TABLE `events` (
 
 -- ---
 -- Table 'items'
--- 
+--
 -- ---
 
 DROP TABLE IF EXISTS `items`;
-    
+
 CREATE TABLE `items` (
   `id` INTEGER AUTO_INCREMENT,
   `item` VARCHAR(60) NULL DEFAULT NULL,
@@ -45,11 +45,11 @@ CREATE TABLE `items` (
 
 -- ---
 -- Table 'reminders'
--- 
+--
 -- ---
 
 DROP TABLE IF EXISTS `reminders`;
-    
+
 CREATE TABLE `reminders` (
   `id` INTEGER AUTO_INCREMENT,
   `phoneNumber` VARCHAR(15) NULL DEFAULT NULL,
@@ -63,11 +63,11 @@ CREATE TABLE `reminders` (
 
 -- ---
 -- Table 'photos'
--- 
+--
 -- ---
 
 DROP TABLE IF EXISTS `photos`;
-    
+
 CREATE TABLE `photos` (
   `id` INTEGER AUTO_INCREMENT,
   `url` VARCHAR(250) NULL DEFAULT NULL,
@@ -79,11 +79,11 @@ CREATE TABLE `photos` (
 
 -- ---
 -- Table 'users'
--- 
+--
 -- ---
 
 DROP TABLE IF EXISTS `users`;
-    
+
 CREATE TABLE `users` (
   `id` INTEGER AUTO_INCREMENT,
   `name` VARCHAR(40) NULL DEFAULT NULL,
@@ -96,16 +96,18 @@ CREATE TABLE `users` (
 
 -- ---
 -- Table 'messages'
--- 
+--
 -- ---
 
 DROP TABLE IF EXISTS `messages`;
-    
+
 CREATE TABLE `messages` (
   `id` INTEGER AUTO_INCREMENT,
   `message` VARCHAR(300) NULL DEFAULT NULL,
   `id_event` INTEGER NULL DEFAULT NULL,
   `id_users` INTEGER NULL DEFAULT NULL,
+  `createdAt` VARCHAR(60) NULL DEFAULT NULL,
+  `updatedAt` VARCHAR(60) NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -115,7 +117,7 @@ CREATE TABLE `messages` (
 -- ---
 
 DROP TABLE IF EXISTS `users_events`;
-    
+
 CREATE TABLE `users_events` (
   `id` INTEGER AUTO_INCREMENT,
   `id_users` INTEGER NULL DEFAULT NULL,
@@ -124,7 +126,7 @@ CREATE TABLE `users_events` (
 ) COMMENT 'Joint table';
 
 -- ---
--- Foreign Keys 
+-- Foreign Keys
 -- ---
 
 ALTER TABLE `items` ADD FOREIGN KEY (id_events) REFERENCES `events` (`id`);
@@ -178,11 +180,11 @@ ALTER TABLE `users_events` ADD FOREIGN KEY (id_event) REFERENCES `events` (`id`)
 
 -- -- ---
 -- -- Table 'events'
--- -- 
+-- --
 -- -- ---
 
 -- DROP TABLE IF EXISTS `events`;
-    
+
 -- CREATE TABLE `events` (
 --   `id` INTEGER AUTO_INCREMENT,
 --   `name` VARCHAR(60),
@@ -195,11 +197,11 @@ ALTER TABLE `users_events` ADD FOREIGN KEY (id_event) REFERENCES `events` (`id`)
 
 -- -- ---
 -- -- Table 'itemlists'
--- -- 
+-- --
 -- -- ---
 
 -- DROP TABLE IF EXISTS `itemlists`;
-    
+
 -- CREATE TABLE `itemlists` (
 --   `id` INTEGER AUTO_INCREMENT,
 --   `item` VARCHAR(60),
@@ -213,11 +215,11 @@ ALTER TABLE `users_events` ADD FOREIGN KEY (id_event) REFERENCES `events` (`id`)
 
 -- -- ---
 -- -- Table 'reminders'
--- -- 
+-- --
 -- -- ---
 
 -- DROP TABLE IF EXISTS `reminders`;
-    
+
 -- CREATE TABLE `reminders` (
 --   `id` INTEGER AUTO_INCREMENT,
 --   `phoneNumber` VARCHAR(15),
@@ -247,7 +249,7 @@ ALTER TABLE `users_events` ADD FOREIGN KEY (id_event) REFERENCES `events` (`id`)
 -- );
 
 -- -- ---
--- -- Foreign Keys 
+-- -- Foreign Keys
 -- -- ---
 
 -- ALTER TABLE `itemlists` ADD FOREIGN KEY (eventId) REFERENCES `events` (`id`);
