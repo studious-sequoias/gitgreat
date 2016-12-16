@@ -4,6 +4,7 @@ var itemListController = require('./controllers/itemListController.js');
 var remindersController = require('./controllers/remindersController.js');
 var photosController = require('./controllers/photosController.js');
 var usersController = require('./controllers/usersController.js');
+var path = require('path');
 
 module.exports = function (app, express) {
   app.get('/', homeController.homepage);
@@ -20,6 +21,7 @@ module.exports = function (app, express) {
   app.post('/api/events/people', eventController.addPerson);
 
   app.get('/api/users/name/:userName', usersController.getUserByName);
+  app.post('/api/users', usersController.addUser);
 
   app.post('/itemList', itemListController.itemsPost);
   app.get('/itemList', itemListController.itemsGet);
@@ -32,5 +34,7 @@ module.exports = function (app, express) {
 
   app.get('*', function (req, res) {
     res.redirect('/');
+    //Enable browser to maintain state on refresh.  Not fully supported in the client yet
+    //res.sendFile(path.resolve(__dirname, '../client/public/index.html'));
   });
 };

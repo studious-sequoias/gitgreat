@@ -10,6 +10,9 @@ class PeopleList extends React.Component {
       people: [{name: 'Casey'}],
       person: ''
     };
+
+    this.changeName = this.changeName.bind(this);
+    this.invitePerson = this.invitePerson.bind(this);
   }
 
   componentWillMount() {
@@ -26,31 +29,45 @@ class PeopleList extends React.Component {
     });
   }
 
-  addPerson() {
-    console.log('Adding', this.state.person);
-    var insertHandler = function(person, invite) {
-      console.log('inserted:', invite);
+  invitePerson() {
+
+    var inviteResponseHandler = function(person, invite) {
       if (invite) {
         this.state.people.push(person);
         this.setState({people: this.state.people});
-        console.log(person.name, 'has been invited');
       }
+    };
+
+    var sendInvite = function(person) {
+      $.ajax({
+        method: 'POST',
+        url: '/api/events/people',
+        data: JSON.stringify({
+          eventId: 1,
+          userId: person.id
+        }),
+        contentType: 'application/json',
+        success: inviteResponseHandler.bind(this, person)
+      });
+    }.bind(this);
+
+    var createNewUser = function() {
+      $.ajax({
+        method: 'POST',
+        url: '/api/users',
+        data: JSON.stringify({
+          name: this.state.person
+        }),
+        contentType: 'application/json',
+        success: sendInvite.bind(this)
+      });
     };
 
     var lookupHandler = function(person) {
       if (person) {
-        $.ajax({
-          method: 'POST',
-          url: '/api/events/people',
-          data: JSON.stringify({
-            eventId: 1,
-            userId: person.id
-          }),
-          contentType: 'application/json',
-          success: insertHandler.bind(this, person)
-        });
+        sendInvite(person);
       } else {
-        //Insert User
+        createNewUser.call(this);
       }
     };
 
@@ -63,7 +80,6 @@ class PeopleList extends React.Component {
   }
 
   changeName(event) {
-    console.log(event.target.value);
     this.setState({person: event.target.value});
   }
 
@@ -71,7 +87,7 @@ class PeopleList extends React.Component {
     return (
       <div>
         <input type="text" placeholder="Name" onChange={this.changeName.bind(this)}/>
-        <button onClick={this.addPerson.bind(this)}>Invite person</button>
+        <button onClick={this.invitePerson}>Invite person</button>
         <h2>Invited:</h2>
         {this.state.people.map( (person, i) => {
           return (

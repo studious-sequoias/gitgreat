@@ -8,5 +8,18 @@ module.exports = {
       .then(function(user) {
         utils.sendResponse(res, 200, 'application/json', user);
       });
+  },
+
+  addUser: function(req, res, next) {
+    dbModels.UsersTable
+      .create({
+        name: req.body.name
+      })
+      .then(function(person) {
+        res.send(person);
+      })
+      .catch(function(err) {
+        console.log('Error: ', err);
+      });
   }
 };
