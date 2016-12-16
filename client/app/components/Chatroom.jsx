@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
 import io from 'socket.io-client';
-let socket = io('http://localhost:4000');
+let socket = io('http://' + window.location.hostname + ':4000');
 
 class Chatroom extends React.Component {
   constructor(props) {
