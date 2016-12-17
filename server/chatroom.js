@@ -11,8 +11,11 @@ module.exports = function(io) {
 
     //Store new message
     socket.on('msgreq:msg', function(msg) {
+      console.log(msg, 'NEW MESSAGE');
       dbModels.MessagesTable.create({
-        message: msg
+        // userId: parseInt(msg.userId),
+        // eventId: parseInt(msg.eventId),
+        message: msg.message
       })
       .then(function() {
         console.log('MSG RECEIVED: ' + msg);
@@ -24,8 +27,12 @@ module.exports = function(io) {
     });
 
     // Get all chat messages
-    socket.on('msgreq:all', function() {
-      dbModels.MessagesTable.findAll({})
+    socket.on('msgreq:all', function(eventId) {
+      dbModels.MessagesTable.findAll({
+        where: {
+          eventId: null
+        }
+      })
       .then(function(resp) {
         var msg = resp.reduce(function(arr, item) {
           arr.push({
