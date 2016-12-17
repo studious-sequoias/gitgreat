@@ -64,7 +64,8 @@ module.exports = {
           .create({
             eventId: event.id,
             userId: req.body.userId,
-            admin: true
+            admin: true,
+            invitePermission: true
           });
       }).then(function(invite) {
         console.log('invite', invite);

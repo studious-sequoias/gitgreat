@@ -11,7 +11,8 @@ class PeopleList extends React.Component {
       people: [{name: 'Casey'}],
       person: '',
       newUser: false,
-      admin: false
+      admin: false,
+      invitePermission: false,
     };
 
     this.changeName = this.changeName.bind(this);
@@ -32,15 +33,19 @@ class PeopleList extends React.Component {
           var curUser = sessionStorage.getItem('user');
           var user = data.filter(person => person.name === curUser);
           var admin = false;
-          console.log('filter', user);
+          var invitePermission = false;
           if (user.length) {
             if (user[0].admin) {
               admin = true;
             }
+            if (user[0].invitePermission) {
+              invitePermission = true;
+            }
           }
           this.setState({
             people: data,
-            admin: admin
+            admin: admin,
+            invitePermission: invitePermission
           });
         }
       }.bind(this)
@@ -141,8 +146,8 @@ class PeopleList extends React.Component {
     console.log('admin', this.state.admin);
     return (
       <div>
-        <input type="text" placeholder="Name" onChange={this.changeName.bind(this)}/>
-        <button onClick={this.invitePerson}>Invite person</button>
+        {this.state.invitePermission && <input type="text" placeholder="Name" onChange={this.changeName.bind(this)}/>}
+        {this.state.invitePermission && <button onClick={this.invitePerson}>Invite person</button>}
         {this.state.newUser && <InviteNewUser changeNumber={this.changeNumber} changeEmail={this.changeEmail} cancel={this.cancelNewInvite} invite={this.createNewUser}/>}
         <h2>Invited:</h2>
         <table>
