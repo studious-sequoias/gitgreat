@@ -91,6 +91,17 @@ module.exports = {
     }).then(function(data) {
       res.send(data);
     });
+  },
+
+  updatePerson: function(req, res, next) {
+    console.log('hi');
+    dbModels.InvitesTable.findOne({where: {userId: req.body.userId, eventId: req.body.eventId}})
+    .then(function(person) {
+      return person.updateAttributes(req.body.changes);
+    })
+    .then(function(person) {
+      res.send(person);
+    });
   }
 
 };
