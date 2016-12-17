@@ -20,6 +20,7 @@ class PeopleList extends React.Component {
     this.invitePerson = this.invitePerson.bind(this);
     this.cancelNewInvite = this.cancelNewInvite.bind(this);
     this.createNewUser = this.createNewUser.bind(this);
+    console.log(sessionStorage.getItem('admin'));
   }
 
   componentWillMount() {
@@ -27,7 +28,6 @@ class PeopleList extends React.Component {
       method: 'GET',
       url: '/api/events/id/' + this.props.params.eventId + '/people',
       success: function(data) {
-        console.log(JSON.stringify(data));
         if (data) {
           this.setState({
             people: data
@@ -139,13 +139,13 @@ class PeopleList extends React.Component {
             <th>Name</th>
             <th>Number</th>
             <th>Email</th>
-            {true && <th>Admin</th>}
-            {true && <th>Allow Invites</th>}
+            {sessionStorage.getItem('admin') === 'true' && <th>Admin</th>}
+            {sessionStorage.getItem('admin') === 'true' && <th>Allow Invites</th>}
             <th>Going</th>
           </tr>
           {this.state.people.map( (person, i) => {
             return (
-              <PeopleListEntry key={i} person={person} admin="true"/>
+              <PeopleListEntry key={i} person={person} admin={sessionStorage.getItem('admin') === 'true'}/>
             );
           })}
           </tbody>
