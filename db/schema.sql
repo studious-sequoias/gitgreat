@@ -118,14 +118,23 @@ CREATE TABLE `messages` (
 -- Joint table
 -- ---
 
-DROP TABLE IF EXISTS `users_events`;
+DROP TABLE IF EXISTS `invites`;
 
-CREATE TABLE `users_events` (
+CREATE TABLE `invites` (
   `id` INTEGER AUTO_INCREMENT,
   `userId` INTEGER NULL DEFAULT NULL,
   `eventId` INTEGER NULL DEFAULT NULL,
+  `admin` BOOLEAN NOT NULL DEFAULT 0,
+  `invitePermission` BOOLEAN NOT NULL DEFAULT 0,
+  `interested` BOOLEAN NOT NULL DEFAULT 0,
+  `interestedResponded` BOOLEAN NOT NULL DEFAULT 0,
+  `going` BOOLEAN NOT NULL DEFAULT 0,
+  `goingResponded` BOOLEAN NOT NULL DEFAULT 0,
+  `createdAt` VARCHAR(60) NULL DEFAULT NULL,
+  `updatedAt` VARCHAR(60) NULL DEFAULT NULL,
+  UNIQUE `user_event`(`userId`, `eventId`),
   PRIMARY KEY (`id`)
-) COMMENT 'Joint table';
+);
 
 -- ---
 -- Foreign Keys
@@ -136,8 +145,8 @@ ALTER TABLE `reminders` ADD FOREIGN KEY (eventId) REFERENCES `events` (`id`);
 ALTER TABLE `photos` ADD FOREIGN KEY (eventId) REFERENCES `events` (`id`);
 ALTER TABLE `messages` ADD FOREIGN KEY (eventId) REFERENCES `events` (`id`);
 ALTER TABLE `messages` ADD FOREIGN KEY (userId) REFERENCES `users` (`id`);
-ALTER TABLE `users_events` ADD FOREIGN KEY (userId) REFERENCES `users` (`id`);
-ALTER TABLE `users_events` ADD FOREIGN KEY (eventId) REFERENCES `events` (`id`);
+ALTER TABLE `invites` ADD FOREIGN KEY (userId) REFERENCES `users` (`id`);
+ALTER TABLE `invites` ADD FOREIGN KEY (eventId) REFERENCES `events` (`id`);
 
 -- ---
 -- Table Properties
@@ -149,7 +158,7 @@ ALTER TABLE `users_events` ADD FOREIGN KEY (eventId) REFERENCES `events` (`id`);
 -- ALTER TABLE `photos` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `users` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 -- ALTER TABLE `messages` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `users_events` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `invites` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ---
 -- Test Data

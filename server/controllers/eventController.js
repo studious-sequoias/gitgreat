@@ -29,8 +29,9 @@ module.exports = {
       });
   },
 
-  getEvents: function(req, res, next) {
-    dbModels.EventsTable.findAll({order: [['when', 'DESC']]})
+  getEventsForUser: function(req, res, next) {
+    //dbModels.EventsTable.findAll({order: [['when', 'DESC']]})
+    dbModels.con.query('SELECT e.*, i.going, i.goingResponded, i.admin, i.invitePermission FROM invites i LEFT JOIN events e ON i.eventId = e.id WHERE i.userId = ' + req.params.userId, {model: dbModels.EventsTable})
       .then(function(events) {
         utils.sendResponse(res, 200, 'application/json', events);
       });
@@ -57,7 +58,16 @@ module.exports = {
         where: req.body.where,
         when: req.body.when
       })
-      .then(function(events) {
+      .then(function(event) {
+        console.log('new event', event, req.body);
+        return dbModels.InvitesTable
+          .create({
+            eventId: event.id,
+            userId: req.body.userId,
+            admin: true
+          });
+      }).then(function(invite) {
+        console.log('invite', invite);
         res.redirect('/');
       })
       .catch(function(err) {
@@ -67,14 +77,14 @@ module.exports = {
 
   getPeople: function(req, res, next) {
     // dbModels.UsersTable.findAll({include: {model: [dbModels.UsersEventsTable], through: {attributes: ['eventId'], where: {eventId: req.params.eventId}}}})
-    dbModels.con.query('SELECT u.* FROM users_events ue LEFT JOIN users u ON ue.userId = u.id WHERE ue.eventId = ' + req.params.eventId, {model: dbModels.UsersTable})
+    dbModels.con.query('SELECT u.*, i.going, i.goingResponded, i.admin, i.invitePermission FROM invites i LEFT JOIN users u ON i.userId = u.id WHERE i.eventId = ' + req.params.eventId, {model: dbModels.UsersTable})
       .then(function(event) {
         res.send(event);
       });
   },
 
   addPerson: function(req, res, next) {
-    dbModels.UsersEventsTable.create({
+    dbModels.InvitesTable.create({
       userId: req.body.userId,
       eventId: req.body.eventId
     }).then(function(data) {

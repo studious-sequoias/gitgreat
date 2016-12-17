@@ -14,35 +14,32 @@ import {browserHistory} from 'react-router';
 class EventPlanning extends React.Component {
   constructor(props) {
     super(props);
+    if (browserHistory.event) {
+      var event = browserHistory.event;
+    } else {
+      var event = {
+        id: 0,
+        name: 'test',
+        where: 'default',
+        when: 'whenver'
+      };
+    }
     this.state = {
-      tab: false
+      event: event
     };
-
-    this.changeDisplay = this.changeDisplay.bind(this);
   }
 
-  changeDisplay(e) {
-    this.setState({
-      tab: e.target.value
-    });
-  }
+  // componentWillMount() {
+  //   var eventId = this.props.params.eventId;
+  //   //Get event info from server and update state
+  // }
 
   render() {
-    var view;
-    // if (this.state.tab === 'whatToBringBtn') {
-    //   view = <WhatToBring featuredEvent={browserHistory.event}/>;
-    // } else if (this.state.tab === 'activitiesBtn') {
-    //   view = <Activities />;
-    // } else if (this.state.tab === 'reminderBtn') {
-    //   view = <Reminders featuredEvent={browserHistory.event}/>;
-    // } else if (this.state.tab === 'photosBtn') {
-    //   view = <Photos uploadFile={this.uploadFile} />;
-    // }
     return (
       <div>
         <Nav />
-        <h1 className="eventHeader">{browserHistory.event.name} | {browserHistory.event.where} | {browserHistory.event.when}</h1>
-        <FeatureNavigation changeDisplay={this.changeDisplay} />
+        <h1 className="eventHeader">{this.state.event.name} | {this.state.event.where} | {this.state.event.when}</h1>
+        <FeatureNavigation/>
         {this.props.children}
       </div>
     );
