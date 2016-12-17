@@ -13,6 +13,7 @@ class PeopleList extends React.Component {
       newUser: false
     };
 
+
     this.changeName = this.changeName.bind(this);
     this.changeNumber = this.changeNumber.bind(this);
     this.changeEmail = this.changeEmail.bind(this);
@@ -26,6 +27,7 @@ class PeopleList extends React.Component {
       method: 'GET',
       url: '/api/events/id/' + this.props.params.eventId + '/people',
       success: function(data) {
+        console.log(JSON.stringify(data));
         if (data) {
           this.setState({
             people: data
@@ -41,7 +43,10 @@ class PeopleList extends React.Component {
         this.state.people.push(person);
         this.setState({
           people: this.state.people,
-          newUser: false
+          newUser: false,
+          person: '',
+          number: '',
+          email: ''
         });
       }
     };
@@ -59,6 +64,9 @@ class PeopleList extends React.Component {
   }
 
   invitePerson() {
+    if (this.state.person === '') {
+      return;
+    }
     this.setState({
       newUser: false
     });
@@ -125,11 +133,23 @@ class PeopleList extends React.Component {
         <button onClick={this.invitePerson}>Invite person</button>
         {this.state.newUser && <InviteNewUser changeNumber={this.changeNumber} changeEmail={this.changeEmail} cancel={this.cancelNewInvite} invite={this.createNewUser}/>}
         <h2>Invited:</h2>
-        {this.state.people.map( (person, i) => {
-          return (
-            <PeopleListEntry key={i} person={person} />
-          );
-        })}
+        <table>
+          <tbody>
+          <tr>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Email</th>
+            {true && <th>Admin</th>}
+            {true && <th>Allow Invites</th>}
+            <th>Going</th>
+          </tr>
+          {this.state.people.map( (person, i) => {
+            return (
+              <PeopleListEntry key={i} person={person} admin="true"/>
+            );
+          })}
+          </tbody>
+        </table>
       </div>
     );
   }

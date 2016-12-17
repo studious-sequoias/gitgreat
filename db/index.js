@@ -99,12 +99,30 @@ var MessagesTable = sequelize.define('messages', {
   }
 });
 
-var UsersEventsTable = sequelize.define('users_events', {
+var InvitesTable = sequelize.define('invites', {
   userId: {
     type: Sequelize.INTEGER
   },
   eventId: {
     type: Sequelize.INTEGER
+  },
+  admin: {
+    type: Sequelize.BOOLEAN
+  },
+  invitePermission: {
+    type: Sequelize.BOOLEAN
+  },
+  interested: {
+    type: Sequelize.BOOLEAN
+  },
+  interestedResponded: {
+    type: Sequelize.BOOLEAN
+  },
+  going: {
+    type: Sequelize.BOOLEAN
+  },
+  goingResponded: {
+    type: Sequelize.BOOLEAN
   }
 });
 
@@ -116,10 +134,10 @@ RemindersTable.belongsTo(EventsTable);
 PhotosTable.belongsTo(EventsTable);
 MessagesTable.belongsTo(EventsTable);
 MessagesTable.belongsTo(UsersTable);
-UsersEventsTable.belongsTo(EventsTable);
-UsersEventsTable.belongsTo(UsersTable);
-UsersTable.hasMany(UsersEventsTable);
-EventsTable.hasMany(UsersEventsTable);
+InvitesTable.belongsTo(EventsTable);
+InvitesTable.belongsTo(UsersTable);
+UsersTable.hasMany(InvitesTable);
+EventsTable.hasMany(InvitesTable);
 
 
 sequelize
@@ -141,7 +159,7 @@ module.exports.RemindersTable = RemindersTable;
 // *************** newly added *****************:
 module.exports.UsersTable = UsersTable;
 module.exports.MessagesTable = MessagesTable;
-module.exports.UsersEventsTable = UsersEventsTable;
+module.exports.InvitesTable = InvitesTable;
 module.exports.con = sequelize;
 
 

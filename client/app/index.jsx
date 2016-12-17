@@ -14,6 +14,11 @@ import Photos from './components/Photos.jsx';
 import Chatroom from './components/Chatroom.jsx';
 import PeopleList from './components/PeopleList.jsx';
 
+//Temporary hack to set user name and id;
+var user = prompt('What\'s your name?').split(',');
+sessionStorage.setItem('user', user[0] || 'Casey');
+sessionStorage.setItem('userId', user[1] || 1);
+
 ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={App}>

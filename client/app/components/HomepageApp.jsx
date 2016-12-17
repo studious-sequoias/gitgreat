@@ -27,7 +27,7 @@ class Home extends React.Component {
     };
     $.ajax({
       method: 'GET',
-      url: '/eventTable',
+      url: '/api/events/userId/' + sessionStorage.getItem('userId'),
       success: successHandler.bind(this)
     });
   }
