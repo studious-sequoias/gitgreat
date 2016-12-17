@@ -10,9 +10,9 @@ class PeopleList extends React.Component {
     this.state = {
       people: [{name: 'Casey'}],
       person: '',
-      newUser: false
+      newUser: false,
+      admin: false
     };
-
 
     this.changeName = this.changeName.bind(this);
     this.changeNumber = this.changeNumber.bind(this);
@@ -29,8 +29,18 @@ class PeopleList extends React.Component {
       url: '/api/events/id/' + this.props.params.eventId + '/people',
       success: function(data) {
         if (data) {
+          var curUser = sessionStorage.getItem('user');
+          var user = data.filter(person => person.name === curUser);
+          var admin = false;
+          console.log('filter', user);
+          if (user.length) {
+            if (user[0].admin) {
+              admin = true;
+            }
+          }
           this.setState({
-            people: data
+            people: data,
+            admin: admin
           });
         }
       }.bind(this)
@@ -128,6 +138,7 @@ class PeopleList extends React.Component {
   }
 
   render() {
+    console.log('admin', this.state.admin);
     return (
       <div>
         <input type="text" placeholder="Name" onChange={this.changeName.bind(this)}/>
@@ -140,13 +151,13 @@ class PeopleList extends React.Component {
             <th>Name</th>
             <th>Number</th>
             <th>Email</th>
-            {sessionStorage.getItem('admin') === 'true' && <th>Admin</th>}
-            {sessionStorage.getItem('admin') === 'true' && <th>Allow Invites</th>}
+            {this.state.admin && <th>Admin</th>}
+            {this.state.admin && <th>Allow Invites</th>}
             <th>Going</th>
           </tr>
           {this.state.people.map( (person, i) => {
             return (
-              <PeopleListEntry key={i} person={person} admin={sessionStorage.getItem('admin') === 'true'}/>
+              <PeopleListEntry key={i} person={person} admin={this.state.admin}/>
             );
           })}
           </tbody>
