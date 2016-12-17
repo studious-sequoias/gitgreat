@@ -13,7 +13,9 @@ module.exports = {
   addUser: function(req, res, next) {
     dbModels.UsersTable
       .create({
-        name: req.body.name
+        name: req.body.name,
+        email: req.body.email,
+        phoneNumber: req.body.phoneNumber
       })
       .then(function(person) {
         res.send(person);

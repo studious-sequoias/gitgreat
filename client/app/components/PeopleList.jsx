@@ -2,23 +2,29 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import PeopleListEntry from './PeopleListEntry.jsx';
+import InviteNewUser from './InviteNewUser.jsx';
 
 class PeopleList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       people: [{name: 'Casey'}],
-      person: ''
+      person: '',
+      newUser: false
     };
 
     this.changeName = this.changeName.bind(this);
+    this.changeNumber = this.changeNumber.bind(this);
+    this.changeEmail = this.changeEmail.bind(this);
     this.invitePerson = this.invitePerson.bind(this);
+    this.cancelNewInvite = this.cancelNewInvite.bind(this);
+    this.createNewUser = this.createNewUser.bind(this);
   }
 
   componentWillMount() {
     $.ajax({
       method: 'GET',
-      url: '/api/events/id/1/people',
+      url: '/api/events/id/' + this.props.params.eventId + '/people',
       success: function(data) {
         if (data) {
           this.setState({
@@ -29,58 +35,87 @@ class PeopleList extends React.Component {
     });
   }
 
-  invitePerson() {
-
+  sendInvite(person) {
     var inviteResponseHandler = function(person, invite) {
       if (invite) {
         this.state.people.push(person);
-        this.setState({people: this.state.people});
+        this.setState({
+          people: this.state.people,
+          newUser: false
+        });
       }
     };
 
-    var sendInvite = function(person) {
-      $.ajax({
-        method: 'POST',
-        url: '/api/events/people',
-        data: JSON.stringify({
-          eventId: 1,
-          userId: person.id
-        }),
-        contentType: 'application/json',
-        success: inviteResponseHandler.bind(this, person)
-      });
-    }.bind(this);
+    $.ajax({
+      method: 'POST',
+      url: '/api/events/people',
+      data: JSON.stringify({
+        eventId: this.props.params.eventId,
+        userId: person.id
+      }),
+      contentType: 'application/json',
+      success: inviteResponseHandler.bind(this, person)
+    });
+  }
 
-    var createNewUser = function() {
-      $.ajax({
-        method: 'POST',
-        url: '/api/users',
-        data: JSON.stringify({
-          name: this.state.person
-        }),
-        contentType: 'application/json',
-        success: sendInvite.bind(this)
-      });
-    };
-
-    var lookupHandler = function(person) {
-      if (person) {
-        sendInvite(person);
-      } else {
-        createNewUser.call(this);
-      }
-    };
-
+  invitePerson() {
+    this.setState({
+      newUser: false
+    });
     //Lookup user by name
     $.ajax({
       method: 'GET',
       url: '/api/users/name/' + this.state.person,
-      success: lookupHandler.bind(this)
+      success: function(person) {
+        if (person) {
+          this.sendInvite(person);
+        } else {
+          // createNewUser.call(this);
+          this.setState({
+            newUser: true
+          });
+        }
+      }.bind(this)
     });
   }
 
   changeName(event) {
-    this.setState({person: event.target.value});
+    this.setState({
+      person: event.target.value,
+      newUser: false
+    });
+  }
+
+  changeNumber(event) {
+    this.setState({
+      number: event.target.value
+    });
+  }
+
+  changeEmail(event) {
+    this.setState({
+      email: event.target.value
+    });
+  }
+
+  cancelNewInvite() {
+    this.setState({
+      newUser: false
+    });
+  }
+
+  createNewUser() {
+    $.ajax({
+      method: 'POST',
+      url: '/api/users',
+      data: JSON.stringify({
+        name: this.state.person,
+        phoneNumber: this.state.number,
+        email: this.state.email
+      }),
+      contentType: 'application/json',
+      success: this.sendInvite.bind(this)
+    });
   }
 
   render() {
@@ -88,6 +123,7 @@ class PeopleList extends React.Component {
       <div>
         <input type="text" placeholder="Name" onChange={this.changeName.bind(this)}/>
         <button onClick={this.invitePerson}>Invite person</button>
+        {this.state.newUser && <InviteNewUser changeNumber={this.changeNumber} changeEmail={this.changeEmail} cancel={this.cancelNewInvite} invite={this.createNewUser}/>}
         <h2>Invited:</h2>
         {this.state.people.map( (person, i) => {
           return (

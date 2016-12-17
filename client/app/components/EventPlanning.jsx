@@ -29,10 +29,10 @@ class EventPlanning extends React.Component {
     };
   }
 
-  componentWillMount() {
-    var eventId = this.props.params.eventId;
-    //Get event info from server and update state
-  }
+  // componentWillMount() {
+  //   var eventId = this.props.params.eventId;
+  //   //Get event info from server and update state
+  // }
 
   render() {
     return (

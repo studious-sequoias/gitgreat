@@ -2,7 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 var PeopleListEntry = (props) => (
-  <div>{props.person.name}</div>
+  <div>
+    <span>{props.person.name}</span> | 
+    <span>{props.person.phoneNumber}</span> | 
+    <span>{props.person.email}</span>
+  </div>
 );
 
 
