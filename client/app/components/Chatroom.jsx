@@ -23,7 +23,7 @@ class Chatroom extends React.Component {
   componentWillMount() {
     this.setState({
       userId: sessionStorage.getItem('userId'),
-      eventId: 1 //INSERT EVENT ID HERE
+      eventId: sessionStorage.getItem('eventId') || 1 //INSERT EVENT ID HERE
     });
   }
 

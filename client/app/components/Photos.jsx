@@ -15,7 +15,7 @@ class Photos extends React.Component {
   }
   componentWillMount() {
     this.setState({
-      eventId: 1 //INSERT EVENT ID HERE
+      eventId: sessionStorage.getItem('eventId') || 1 //INSERT EVENT ID HERE
     });
   }
 
