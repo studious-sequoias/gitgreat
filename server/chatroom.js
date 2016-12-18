@@ -11,14 +11,12 @@ module.exports = function(io) {
 
     //Store new message
     socket.on('msgreq:msg', function(msg) {
-      console.log(msg, 'NEW MESSAGE');
       dbModels.MessagesTable.create({
-        // userId: parseInt(msg.userId),
-        // eventId: parseInt(msg.eventId),
-        message: msg.message
+        message: msg.message,
+        eventId: msg.eventId,
+        userId: msg.userId
       })
       .then(function() {
-        console.log('MSG RECEIVED: ' + msg);
         io.emit('msgres:msg', msg);
       })
       .catch(function(err) {
@@ -30,7 +28,7 @@ module.exports = function(io) {
     socket.on('msgreq:all', function(eventId) {
       dbModels.MessagesTable.findAll({
         where: {
-          eventId: null
+          eventId: eventId || null
         }
       })
       .then(function(resp) {
@@ -41,31 +39,33 @@ module.exports = function(io) {
           });
           return arr;
         }, []);
-        console.log(msg, 'ALL MESSAGES SERVER SIDE');
-        io.emit('msgres:all', msg);
+
+        var nameIds = msg.map(function(item) {
+          return item.username;
+        });
+
+        dbModels.UsersTable.findAll({
+          where: {
+            id: nameIds
+          }
+        })
+        .then(function(resp) {
+          var nameHash = resp.reduce(function(obj, item) {
+            obj[item.id] = item.name;
+            return obj;
+          }, {});
+
+          var result = msg.reduce(function(arr, item) {
+            arr.push({
+              username: nameHash[item.username],
+              message: item.message
+            });
+            return arr;
+          }, []);
+
+          io.emit('msgres:all', result);
+        });
       });
     });
   };
 };
-
-
-// var messages = [];
-// io.on('connection', function(socket) {
-
-//   console.log('a user connected');
-
-//   socket.on('disconnect', function() {
-//     console.log('user disconnected');
-//   });
-
-//   socket.on('msgreq:msg', function(msg) {
-//     messages.push(msg);
-//     console.log('message RECEIVED: ' + msg);
-//     io.emit('msgres:msg', msg);
-//   });
-
-//   socket.on('msgreq:all', function() {
-//     io.emit('msgres:all', messages);
-//   });
-
-// });

@@ -5,16 +5,16 @@ const multiparty = require('multiparty');
 module.exports = {
 
   uploadImage: function(req, res) {
-    console.log('hits uploadImage in server');
     var form = new multiparty.Form();
     form.parse(req, function(err, fields, files) {
-      // console.log('fields: ', fields);
-      // console.log('files: ', files);
-      // console.log('file:', files.imageFile[0].path);
+      var eventId = parseInt(fields.eventId[0]);
       if (files.imageFile) {
         cloudinary.uploader.upload(files.imageFile[0].path, function(result) {
           console.log('cloudinary resulttt: ', result);
-          dbModels.PhotosTable.create({url: result.url})
+          dbModels.PhotosTable.create({
+            url: result.url,
+            eventId: eventId
+          })
             .then(function(event) {
               console.log('successfully added url to db!!!');
             })
@@ -28,13 +28,16 @@ module.exports = {
   },
 
   displayImages: function(req, res) {
-    console.log('hits displayimages in server');
-    dbModels.PhotosTable.findAll()
-    .then(function(data) {
-      for (var pair in data.entries()) {
-        console.log(pair);
+    var eventId = req.url.split('').reverse().join('');
+    eventId = parseInt(eventId.slice(0, eventId.indexOf('=')).split('').reverse().join(''));
+
+    dbModels.PhotosTable.findAll({
+      where: {
+        eventId: eventId
       }
-      res.send(data);
+    })
+    .then(function(data) {
+      res.send(data.reverse());
     });
   }
 

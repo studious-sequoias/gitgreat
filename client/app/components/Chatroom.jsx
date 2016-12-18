@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import {browserHistory} from 'react-router';
 import io from 'socket.io-client';
 let socket = io('http://' + window.location.hostname + ':4000');
 
@@ -9,8 +9,9 @@ class Chatroom extends React.Component {
     super(props);
     this.state = {
       allMessages: [],
-      msgInput: '',
-      test: ''
+      eventId: null,
+      userId: null,
+      msgInput: ''
     };
     this.getMessages = this.getMessages.bind(this);
     this.callback = this.callback.bind(this);
@@ -19,13 +20,20 @@ class Chatroom extends React.Component {
   componentDidMount() {
     this.getMessages();
   }
+  componentWillMount() {
+    this.setState({
+      userId: sessionStorage.getItem('userId'),
+      eventId: sessionStorage.getItem('eventId') || 1 //INSERT EVENT ID HERE
+    });
+  }
+
 
   componentWillUnmount() {
     socket.removeListener('msgres:all', this.callback);
   }
 
   getMessages() {
-    socket.emit('msgreq:all', 1); //second argument is eventId
+    socket.emit('msgreq:all', this.state.eventId);
     socket.on('msgres:all', this.callback);
   }
 
@@ -37,8 +45,8 @@ class Chatroom extends React.Component {
 
   sendMsg(event) {
     var message = {
-      userId: null,
-      eventId: null,
+      userId: this.state.userId,
+      eventId: this.state.eventId,
       message: this.state.msgInput
     };
     socket.emit('msgreq:msg', message);
