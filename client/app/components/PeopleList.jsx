@@ -92,15 +92,14 @@ class PeopleList extends React.Component {
       url: '/api/users/name/' + this.state.person,
       success: function(person) {
         if (person) {
-          sessionStorage.setItem('user', person.name);
-          sessionStorage.setItem('userId', person.userId);
-          //redirect to home
-          window.location.href="/";
+          this.sendInvite(person);
         } else {
-          //redirect to signup
-          window.location.href="/signup.html";
+          //Create new user
+          this.setState({
+            newUser: true
+          });
         }
-      }
+      }.bind(this)
     });
   }
 

@@ -7,7 +7,7 @@ var login = function() {
     success: function(person) {
       if (person) {
         sessionStorage.setItem('user', person.name);
-        sessionStorage.setItem('userId', person.userId);
+        sessionStorage.setItem('userId', person.id);
         //redirect to home
         window.location.href="/";
       } else {
@@ -29,7 +29,10 @@ var signup = function() {
     },
     success: function(person) {
       if (person) {
-        window.location.href="/login.html";
+        // window.location.href="/login.html";
+        sessionStorage.setItem('user', person.name);
+        sessionStorage.setItem('userId', person.id);
+        window.location.href="/";
       } else {
         window.location.href="/signup.html";
       }
