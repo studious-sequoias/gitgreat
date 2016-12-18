@@ -6,45 +6,44 @@ class Photos extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      photoUrls: []
+      photoUrls: [],
+      eventId: null
     };
   }
   componentDidMount() {
     this.displayPhotos();
   }
+  componentWillMount() {
+    this.setState({
+      eventId: 1 //INSERT EVENT ID HERE
+    });
+  }
 
   displayPhotos() {
-    // console.log('hit displayPhotos function');
-    // // ajax get request from server with correct route
-    //     // remember to make a new route
+
     var photoLinks = [];
-    $.get('/displayImages', function(data) {
+    $.get({
+      url: '/displayImages',
+      data: {
+        eventId: this.state.eventId
+      }
+    }, function(data) {
       data.forEach(function(el) {
-        // console.log(el.url);
         photoLinks.push(el.url);
       });
       this.setState({
         photoUrls: photoLinks
       });
-      // console.log(this.state.photoUrls);
     }.bind(this));
   }
   uploadFile(e) {
     e.preventDefault();
     var formData = new FormData();
-    // var files = document.getElementById('imageUpload').files;
     var files = $('input[type=file]')[0].files[0];
+    var context = this;
     if (files) {
-      // console.log(files);
-      // console.log('files: ', files);
-      // formData.append('name', files[0].name);
       formData.append('imageFile', files);
-      // formData.append('username', 'wells');
-      // console.log('files[0]:, ', files);
-      // console.log('formData: ', formData.entries());
-      // for(var pair of formData.entries()) {
-      //   console.log(pair);
-      // }
+      formData.append('eventId', this.state.eventId);
       $.ajax({
         url: '/uploadImage',
         type: 'POST',
@@ -53,7 +52,6 @@ class Photos extends React.Component {
         contentType: false, // tells jQuery not to set contentType
         success: () => {
           console.log('post request successful and saved to db!');
-          this.displayPhotos();
         },
         failure: () => {
           console.log('Failed to upload');
@@ -62,35 +60,8 @@ class Photos extends React.Component {
     } else {
       console.log('no file selected!');
     }
-    // console.log('files here: ', files);
-    // for(var i = 0; i < files.length; i++) {
-    //   // var fileObject = {};
-    //   // fileObject.filename = files[i].name;
-    //   // fileObject.filesize = files[i].size;
-    //   // fileObject.filetype = files[i].type;
-    //   console.log(files[i]);
-    //   var reader = new FileReader();
-    //   reader.onload = (e) => {
-    //     console.log('successfully loaded file!!!');
-    //     // console.log('fileobject: ', fileObject);
-    //     console.log('event: ', e);
-    //     // fileObject.filedata = e.target.result;
-    //     $.ajax({
-    //       type: 'POST',
-    //       url: '/uploadImage',
-    //       data: JSON.stringify(e.target.result),
-    //       success: () => {
-    //         console.log('post request successful and saved to db!');
-    //         this.displayPhotos();
-    //       }
-    //     });
-    //   }
-    //   reader.readAsDataURL(files[i]);
-    // }
   }
   render() {
-    // console.log('calls render');
-    // this.displayPhotos();
     return (<div>Photos Tab Stuff Here
               <form method="post" encType="multipart/form-data" id="uploadForm">
                 <input type="file" id="imageUpload" accept="image/*" multiple /><br/>
