@@ -22,7 +22,7 @@ class PeopleList extends React.Component {
     this.cancelNewInvite = this.cancelNewInvite.bind(this);
     this.createNewUser = this.createNewUser.bind(this);
     this.toggleAdmin = this.toggleAdmin.bind(this);
-    console.log(sessionStorage.getItem('admin'));
+    this.toggleInvitePermission = this.toggleInvitePermission.bind(this);
   }
 
   componentWillMount() {
@@ -144,7 +144,6 @@ class PeopleList extends React.Component {
   }
 
   toggleAdmin(id) {
-    console.log(id);
     var user = this.state.people.filter(person => person.id === id);
     var admin;
     if (user.length) {
@@ -167,8 +166,30 @@ class PeopleList extends React.Component {
     });
   }
 
+  toggleInvitePermission(id) {
+    var user = this.state.people.filter(person => person.id === id);
+    var invitePermission;
+    if (user.length) {
+      invitePermission = user[0].invitePermission = !user[0].invitePermission;
+    }
+    this.setState({
+      people: this.state.people
+    });
+    $.ajax({
+      method: 'PUT',
+      url: '/api/events/people',
+      data: JSON.stringify({
+        eventId: this.props.params.eventId,
+        userId: id,
+        changes: {
+          invitePermission: invitePermission
+        }
+      }),
+      contentType: 'application/json'
+    });
+  }
+
   render() {
-    console.log('admin', this.state.admin);
     return (
       <div>
         {this.state.invitePermission && <input type="text" placeholder="Name" onChange={this.changeName.bind(this)}/>}
@@ -187,7 +208,7 @@ class PeopleList extends React.Component {
           </tr>
           {this.state.people.map( (person, i) => {
             return (
-              <PeopleListEntry key={i} person={person} admin={this.state.admin} toggleAdmin={this.toggleAdmin}/>
+              <PeopleListEntry key={i} person={person} admin={this.state.admin} toggleAdmin={this.toggleAdmin} toggleInvitePermission={this.toggleInvitePermission}/>
             );
           })}
           </tbody>

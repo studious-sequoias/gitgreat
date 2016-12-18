@@ -12,6 +12,11 @@ class EventList extends React.Component {
       upcoming: [],
       completed: []
     };
+
+    this.setGoing = this.setGoing.bind(this);
+    this.setNotGoing = this.setNotGoing.bind(this);
+    this.toggleGoing = this.toggleGoing.bind(this);
+    this.goingResponseHandler = this.goingResponseHandler.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     //This function will sort the events in the eventList into two categories: upcoming and deleted
@@ -33,6 +38,81 @@ class EventList extends React.Component {
     }
   }
 
+  goingResponseHandler(data) {
+    this.state.upcoming.forEach(function(event, i) {
+      console.log(JSON.stringify(event), JSON.stringify(data));
+      if (event.id === data.eventId) {
+        console.log(this.state.upcoming[i]);
+        this.state.upcoming[i].going = data.going;
+        this.state.upcoming[i].goingResponded = data.goingResponded;
+      }
+    }.bind(this));
+    this.state.completed.forEach(function(event, i) {
+      console.log(JSON.stringify(event), JSON.stringify(data));
+      if (event.id === data.eventId) {
+        console.log(this.state.completed);
+        this.state.completed[i].going = data.going;
+        this.state.completed[i].goingResponded = data.goingResponded;
+      }
+    }.bind(this));
+    this.setState({
+      upcoming: this.state.upcoming,
+      completed: this.state.completed
+    });
+  }
+
+  setGoing(event) {
+    $.ajax({
+      method: 'PUT',
+      url: '/api/events/people',
+      data: JSON.stringify({
+        eventId: event.target.dataset.id,
+        userId: sessionStorage.getItem('userId'),
+        changes: {
+          goingResponded: true,
+          going: true
+        }
+      }),
+      contentType: 'application/json',
+      success: this.goingResponseHandler
+    });
+  }
+
+  setNotGoing(event) {
+    $.ajax({
+      method: 'PUT',
+      url: '/api/events/people',
+      data: JSON.stringify({
+        eventId: event.target.dataset.id,
+        userId: sessionStorage.getItem('userId'),
+        changes: {
+          goingResponded: true,
+          going: false
+        }
+      }),
+      contentType: 'application/json',
+      success: this.goingResponseHandler
+    });
+  }
+
+  toggleGoing(event) {
+    console.log(event.target.dataset.going);
+    $.ajax({
+      method: 'PUT',
+      url: '/api/events/people',
+      data: JSON.stringify({
+        eventId: event.target.dataset.id,
+        userId: sessionStorage.getItem('userId'),
+        changes: {
+          goingResponded: true,
+          going: event.target.dataset.going === 'false'
+        }
+      }),
+      contentType: 'application/json',
+      success: this.goingResponseHandler
+    });
+  }
+
   render() {
     return (
       <div>
@@ -43,6 +123,9 @@ class EventList extends React.Component {
               <EventListEntry 
                 key={index} event={event} 
                 handleEntryClick={this.props.handleEntryClick}
+                setGoing={this.setGoing}
+                setNotGoing={this.setNotGoing}
+                toggleGoing={this.toggleGoing}
               />
             );
           })}
@@ -54,6 +137,9 @@ class EventList extends React.Component {
                 <EventListEntry 
                   key={index} event={event} 
                   handleEntryClick={this.props.handleEntryClick}
+                  setGoing={this.setGoing}
+                  setNotGoing={this.setNotGoing}
+                  toggleGoing={this.toggleGoing}
                 />
               );
             })}
