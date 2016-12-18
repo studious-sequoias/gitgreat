@@ -11,6 +11,7 @@ module.exports = {
   },
 
   addUser: function(req, res, next) {
+    console.log('REQ.BODY', req.body);
     dbModels.UsersTable
       .create({
         name: req.body.name,
