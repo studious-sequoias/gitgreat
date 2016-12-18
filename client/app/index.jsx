@@ -18,6 +18,9 @@ import PeopleList from './components/PeopleList.jsx';
 // var user = prompt('What\'s your name?').split(',');
 // sessionStorage.setItem('user', user[0] || 'Casey');
 // sessionStorage.setItem('userId', user[1] || 1);
+if (!sessionStorage.getItem('user') || !sessionStorage.getItem('userId')) {
+  window.location.href = '/login.html';
+}
 // if (sessionStorage.getItem('userId') === '1') {
 //   sessionStorage.setItem('admin', true);
 // } else {

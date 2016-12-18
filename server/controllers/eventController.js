@@ -64,7 +64,8 @@ module.exports = {
           .create({
             eventId: event.id,
             userId: req.body.userId,
-            admin: true
+            admin: true,
+            invitePermission: true
           });
       }).then(function(invite) {
         console.log('invite', invite);
@@ -89,6 +90,17 @@ module.exports = {
       eventId: req.body.eventId
     }).then(function(data) {
       res.send(data);
+    });
+  },
+
+  updatePerson: function(req, res, next) {
+    console.log('hi');
+    dbModels.InvitesTable.findOne({where: {userId: req.body.userId, eventId: req.body.eventId}})
+    .then(function(person) {
+      return person.updateAttributes(req.body.changes);
+    })
+    .then(function(person) {
+      res.send(person);
     });
   }
 

@@ -10,9 +10,10 @@ class PeopleList extends React.Component {
     this.state = {
       people: [{name: 'Casey'}],
       person: '',
-      newUser: false
+      newUser: false,
+      admin: false,
+      invitePermission: false,
     };
-
 
     this.changeName = this.changeName.bind(this);
     this.changeNumber = this.changeNumber.bind(this);
@@ -20,7 +21,8 @@ class PeopleList extends React.Component {
     this.invitePerson = this.invitePerson.bind(this);
     this.cancelNewInvite = this.cancelNewInvite.bind(this);
     this.createNewUser = this.createNewUser.bind(this);
-    console.log(sessionStorage.getItem('admin'));
+    this.toggleAdmin = this.toggleAdmin.bind(this);
+    this.toggleInvitePermission = this.toggleInvitePermission.bind(this);
   }
 
   componentWillMount() {
@@ -29,8 +31,22 @@ class PeopleList extends React.Component {
       url: '/api/events/id/' + this.props.params.eventId + '/people',
       success: function(data) {
         if (data) {
+          var curUser = sessionStorage.getItem('user');
+          var user = data.filter(person => person.name === curUser);
+          var admin = false;
+          var invitePermission = false;
+          if (user.length) {
+            if (user[0].admin) {
+              admin = true;
+            }
+            if (user[0].invitePermission) {
+              invitePermission = true;
+            }
+          }
           this.setState({
-            people: data
+            people: data,
+            admin: admin,
+            invitePermission: invitePermission
           });
         }
       }.bind(this)
@@ -76,15 +92,14 @@ class PeopleList extends React.Component {
       url: '/api/users/name/' + this.state.person,
       success: function(person) {
         if (person) {
-          sessionStorage.setItem('user', person.name);
-          sessionStorage.setItem('userId', person.userId);
-          //redirect to home
-          window.location.href="/";
+          this.sendInvite(person);
         } else {
-          //redirect to signup
-          window.location.href="/signup.html";
+          //Create new user
+          this.setState({
+            newUser: true
+          });
         }
-      }
+      }.bind(this)
     });
   }
 
@@ -127,11 +142,57 @@ class PeopleList extends React.Component {
     });
   }
 
+  toggleAdmin(id) {
+    var user = this.state.people.filter(person => person.id === id);
+    var admin;
+    if (user.length) {
+      admin = user[0].admin = !user[0].admin;
+    }
+    this.setState({
+      people: this.state.people
+    });
+    $.ajax({
+      method: 'PUT',
+      url: '/api/events/people',
+      data: JSON.stringify({
+        eventId: this.props.params.eventId,
+        userId: id,
+        changes: {
+          admin: admin
+        }
+      }),
+      contentType: 'application/json'
+    });
+  }
+
+  toggleInvitePermission(id) {
+    var user = this.state.people.filter(person => person.id === id);
+    var invitePermission;
+    if (user.length) {
+      invitePermission = user[0].invitePermission = !user[0].invitePermission;
+    }
+    this.setState({
+      people: this.state.people
+    });
+    $.ajax({
+      method: 'PUT',
+      url: '/api/events/people',
+      data: JSON.stringify({
+        eventId: this.props.params.eventId,
+        userId: id,
+        changes: {
+          invitePermission: invitePermission
+        }
+      }),
+      contentType: 'application/json'
+    });
+  }
+
   render() {
     return (
       <div>
-        <input type="text" placeholder="Name" onChange={this.changeName.bind(this)}/>
-        <button onClick={this.invitePerson}>Invite person</button>
+        {this.state.invitePermission && <input type="text" placeholder="Name" onChange={this.changeName.bind(this)}/>}
+        {this.state.invitePermission && <button onClick={this.invitePerson}>Invite person</button>}
         {this.state.newUser && <InviteNewUser changeNumber={this.changeNumber} changeEmail={this.changeEmail} cancel={this.cancelNewInvite} invite={this.createNewUser}/>}
         <h2>Invited:</h2>
         <table>
@@ -140,13 +201,13 @@ class PeopleList extends React.Component {
             <th>Name</th>
             <th>Number</th>
             <th>Email</th>
-            {sessionStorage.getItem('admin') === 'true' && <th>Admin</th>}
-            {sessionStorage.getItem('admin') === 'true' && <th>Allow Invites</th>}
+            {this.state.admin && <th>Admin</th>}
+            {this.state.admin && <th>Allow Invites</th>}
             <th>Going</th>
           </tr>
           {this.state.people.map( (person, i) => {
             return (
-              <PeopleListEntry key={i} person={person} admin={sessionStorage.getItem('admin') === 'true'}/>
+              <PeopleListEntry key={i} person={person} admin={this.state.admin} toggleAdmin={this.toggleAdmin} toggleInvitePermission={this.toggleInvitePermission}/>
             );
           })}
           </tbody>
