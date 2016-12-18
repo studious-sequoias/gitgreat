@@ -15,6 +15,12 @@ class PeopleList extends React.Component {
       invitePermission: false,
     };
 
+    if (this.props.params.eventId) {
+      sessionStorage.setItem('eventId', this.props.params.eventId);
+    } else {
+      this.props.params.eventId = sessionStorage.getItem('eventId');
+    }
+
     this.changeName = this.changeName.bind(this);
     this.changeNumber = this.changeNumber.bind(this);
     this.changeEmail = this.changeEmail.bind(this);

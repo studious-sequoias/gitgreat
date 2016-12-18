@@ -15,6 +15,7 @@ class Chatroom extends React.Component {
     };
     this.getMessages = this.getMessages.bind(this);
     this.callback = this.callback.bind(this);
+    console.log('params', JSON.stringify(this.props.params));
   }
 
   componentDidMount() {
