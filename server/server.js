@@ -13,6 +13,7 @@ cloudinary.config({
 
 const app = express();
 app.use(parser.json());
+app.use(parser.urlencoded({ extended: false }));
 
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
