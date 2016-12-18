@@ -9,7 +9,7 @@ var Nav = () => (
     <Link to="/home" className="title" >FRIENDS</Link>
     <Link to="/home" >Home</Link>
     <Link to="/create" >Create Event</Link>
-    <Link to="/login" >Log In</Link>
+    <a href="/login.html" >Log In</a>
   </div>
 );
 
