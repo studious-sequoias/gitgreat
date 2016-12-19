@@ -5,6 +5,7 @@ import $ from 'jquery';
 
 
 class Venue extends React.Component{
+
   constructor(props) {
     super(props);
     this.state = {
@@ -41,6 +42,7 @@ class Venue extends React.Component{
 
 // HR: {lat: 37.783705, lng: -122.408977}
 // Google: {lat: 37.4223664, lng: -122.084406}
+
 export default Venue;
 
 // Map.defaultProps = {
@@ -156,5 +158,3 @@ export default Venue;
 //     );
 //   }
 // }
-
-
