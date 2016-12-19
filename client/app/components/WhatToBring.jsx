@@ -25,9 +25,9 @@ class WhatToBring extends React.Component {
   }
 
   fetchItems() {
-    //The event name is passed along to the server via query parameters 
+    //The event name is passed along to the server via query parameters
     //so that we can display the itemlist associated with a specific event
-    var eventParam = browserHistory.event.name.split(' ').join('_');
+    var eventParam = sessionStorage.getItem('eventId');
     var successHandler = function(data) {
       this.setState({itemList: data});
     };
@@ -39,7 +39,7 @@ class WhatToBring extends React.Component {
   }
 
   handleSubmit(event) {
-    //The event name is passed along to the server via query parameters 
+    //The event name is passed along to the server via query parameters
     //so that we can post to the itemlistTable associated with a specific event
     var item = {
       item: this.state.currentItem,
@@ -49,7 +49,7 @@ class WhatToBring extends React.Component {
     var successHandler = function(data) {
       this.fetchItems();
     };
-    var eventParam = browserHistory.event.name.split(' ').join('_');
+    var eventParam = sessionStorage.getItem('eventId');
     $.ajax({
       method: 'POST',
       url: '/itemList?eventName=' + eventParam,
@@ -82,19 +82,19 @@ class WhatToBring extends React.Component {
         <form className="bringForm" onSubmit={this.handleSubmit}>
           <label>
             Owner:
-          <input type='text' name='owner' 
+          <input type='text' name='owner'
             onChange={this.handleOwnerChange}
           />
           </label>
           <label>
-            Item: 
-            <input type='text' name='item' 
+            Item:
+            <input type='text' name='item'
               onChange={this.handleItemChange}
             />
           </label>
           <label>
-            Cost: 
-            <input type='text' name='cost' 
+            Cost:
+            <input type='text' name='cost'
               onChange={this.handleCostChange}
             />
           </label>
@@ -109,7 +109,7 @@ class WhatToBring extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.itemList.map( (item, index) => 
+            {this.state.itemList.map( (item, index) =>
               <tr key={index}>
                 <th>{item.owner}</th>
                 <th>{item.item}</th>

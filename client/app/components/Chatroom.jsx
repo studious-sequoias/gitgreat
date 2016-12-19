@@ -31,6 +31,10 @@ class Chatroom extends React.Component {
 
   componentWillUnmount() {
     socket.removeListener('msgres:all', this.callback);
+    this.setState.removeListener({
+      userId: sessionStorage.getItem('userId'),
+      eventId: sessionStorage.getItem('eventId') || 1 //INSERT EVENT ID HERE
+    });
   }
 
   getMessages() {
