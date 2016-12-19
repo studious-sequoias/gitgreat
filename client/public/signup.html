@@ -3,17 +3,37 @@
 <head>
   <meta charset="utf-8">
   <title>Sign Up</title>
-  <script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
+
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="./styles/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
+  <!-- LIBRARIES -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Molle:400i" rel="stylesheet">
+
+
+  <!-- CUSTOM -->
   <script src="./auth.js"></script>
+
 </head>
-<body>
-  <h1>Sign Up</h1>
-    <label><strong>Username</strong></label><br>
-    <input type="text" id="signup" name="username"><br>
-    <input type="submit" onclick="signup()"><br>
-  <a href="/login.html">Already have an account? Login!</a>
+</head>
+<body class="brown lighten-4">
+  <div id="container">
+    <div class="row">
+      <h1>Sign Up</h1>
+      <div class="input-field col s12">
+        <input placeholder="Password" id="login" type="text" class="validate">
+        <button class="btn waves-effect waves-light" type="submit" name="action" onclick="signup()">Sign up
+        </button><br>
+        <a class="link" href="/login.html">Already have an account? Login!</a>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

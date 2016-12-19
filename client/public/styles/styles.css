@@ -1,5 +1,64 @@
 /* * * * * * * * * *
  *                 *
+ *     Steven      *
+ *                 *
+ * * * * * * * * * */
+
+body {
+
+}
+
+#container {
+  display: flex;
+}
+
+#login {
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.link {
+  font-family: 'Molle', cursive;
+}
+
+h1 {
+  font-family: 'Molle', cursive;
+  text-align: center;
+  font-size: 100px;
+  color: #26a69a;
+  text-shadow: -1px 0 #29b6f6, 0 1px #29b6f6, 1px 0 #29b6f6, 0 -1px #29b6f6;
+}
+
+::-webkit-input-placeholder {
+   text-align: center;
+   color: black;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   text-align: center;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;  
+}
+
+:-ms-input-placeholder {  
+   text-align: center; 
+}
+
+/* * * * * * * * * *
+ *                 *
  *     General     *
  *                 *
  * * * * * * * * * */
