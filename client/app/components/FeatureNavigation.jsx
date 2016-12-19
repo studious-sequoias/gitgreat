@@ -12,6 +12,7 @@ var FeatureNavigation = (props) => (
       <Link to='reminders' className="button reminderBtn">Reminders</Link>
       <Link to='photos' className="button photosBtn">Photos</Link>
       <Link to='chat' className="button chatBtn">Chatroom</Link>
+      <Link to='Venue' className="button venueBtn">Venue (IP)</Link>      
     </div>
   </div>
 );
