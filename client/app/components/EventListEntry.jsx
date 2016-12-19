@@ -14,7 +14,7 @@ var EventListEntry = (props) => (
       Time: {props.event.when}<br />
     </div>
     <div>
-      Going: 
+      Going:
       {!props.event.goingResponded && <button data-id={props.event.id} onClick={props.setGoing}>Yes</button>}
       {!props.event.goingResponded && <button data-id={props.event.id} onClick={props.setNotGoing}>No</button>}
       {!!props.event.goingResponded && <span>{props.event.going ? 'Yes' : 'No'}</span>}

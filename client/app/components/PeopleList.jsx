@@ -196,12 +196,12 @@ class PeopleList extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="inviteForm">
         {this.state.invitePermission && <input type="text" placeholder="Name" onChange={this.changeName.bind(this)}/>}
         {this.state.invitePermission && <button onClick={this.invitePerson}>Invite person</button>}
         {this.state.newUser && <InviteNewUser changeNumber={this.changeNumber} changeEmail={this.changeEmail} cancel={this.cancelNewInvite} invite={this.createNewUser}/>}
         <h2>Invited:</h2>
-        <table>
+        <table className="inviteeTable featureBody">
           <tbody>
           <tr>
             <th>Name</th>

@@ -1,4 +1,4 @@
-//Child component within the HomepageApp and the CreateEventApp to toggle 
+//Child component within the HomepageApp and the CreateEventApp to toggle
 //between the two App pages.
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -9,7 +9,7 @@ var Nav = () => (
     <Link to="/home" className="title" >FRIENDS</Link>
     <Link to="/home" >Home</Link>
     <Link to="/create" >Create Event</Link>
-    <a href="/login.html" >Log In</a>
+    <a href="/login.html" >Log Out</a>
   </div>
 );
 

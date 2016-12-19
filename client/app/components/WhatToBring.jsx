@@ -98,9 +98,9 @@ class WhatToBring extends React.Component {
               onChange={this.handleCostChange}
             />
           </label>
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Submit" className="btn"/>
         </form>
-        <table className="bringTable">
+        <table className="bringTable featureBody">
           <thead>
             <tr>
               <th>Owner</th>

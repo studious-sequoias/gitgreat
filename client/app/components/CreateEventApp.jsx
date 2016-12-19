@@ -50,7 +50,7 @@ class CreateEventApp extends React.Component {
       success: successHandler.bind(this)
     });
     event.preventDefault();
-  } 
+  }
   render() {
     return (
       <div>
@@ -58,24 +58,24 @@ class CreateEventApp extends React.Component {
         <div className="featureBody" id="createEvent">
           <form onSubmit={this.handleEventSubmit}>
             <p><label>
-              Name:  
-              <input type="text" name="name" 
+              Name:
+              <input type="text" name="name"
                 value={this.state.name}
                 onChange={this.handleNameChange}/>
             </label></p>
             <p><label>
               Date:
-              <input type="datetime-local" name="date" 
+              <input type="datetime-local" name="date"
                 value={this.state.when}
                 onChange={this.handleDateChange}/>
             </label></p>
             <p><label>
-              Location: 
-              <input type="text" name="location" 
+              Location:
+              <input type="text" name="location"
                 value={this.state.where}
                 onChange={this.handleLocChange}/>
             </label></p>
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Submit" className="btn"/>
           </form>
         </div>
         <div id='msg'></div>
