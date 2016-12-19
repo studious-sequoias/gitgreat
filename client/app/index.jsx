@@ -13,8 +13,7 @@ import Reminders from './components/Reminders.jsx';
 import Photos from './components/Photos.jsx';
 import Chatroom from './components/Chatroom.jsx';
 import PeopleList from './components/PeopleList.jsx';
-// ******************** venue code **************************
-import Venue from './components/Venue.jsx'
+import Venue from './components/Venue.jsx';
 
 //Temporary hack to set user name and id;
 // var user = prompt('What\'s your name?').split(',');

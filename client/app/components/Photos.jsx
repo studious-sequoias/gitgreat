@@ -62,12 +62,14 @@ class Photos extends React.Component {
     }
   }
   render() {
-    return (<div>Photos Tab Stuff Here
+    return (<div className="photoForm">Photos Tab Stuff Here
               <form method="post" encType="multipart/form-data" id="uploadForm">
                 <input type="file" id="imageUpload" accept="image/*" multiple /><br/>
-                <input type="submit" value="submit" onClick={(e) => this.uploadFile(e)}/>
+                <input className="btn" type="submit" value="submit" onClick={(e) => this.uploadFile(e)}/>
               </form>
-              {this.state.photoUrls.map((link, index) => <img key={index} src={link} />)}
+              <div className="photos">
+                {this.state.photoUrls.map((link, index) => <img key={index} src={link} />)}
+              </div>
             </div>);
   }
 }

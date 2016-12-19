@@ -69,7 +69,7 @@ class Reminders extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="inviteForm">
         <h2>Reminder</h2>
         <form onSubmit={this.handleReminderSubmit}>
           <label>
@@ -90,10 +90,10 @@ class Reminders extends React.Component {
               value={this.state.msg}
               onChange={this.handleMsgChange}/>
           </label>
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Submit" className="btn"/>
         </form>
         <div id='msg'></div>
-        <table>
+        <table className="inviteeTable featureBody">
           <caption>ReminderList</caption>
           <thead>
             <tr>

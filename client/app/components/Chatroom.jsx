@@ -75,9 +75,9 @@ class Chatroom extends React.Component {
             })
           }
         </ul>
-        <form onSubmit={this.sendMsg.bind(this)}>
+        <form className="chatBtn" onSubmit={this.sendMsg.bind(this)}>
           <input value={this.state.msgInput} onChange={this.inputChangeHandler.bind(this)}/>
-          <input type="submit"/>
+          <input type="submit" className="btn"/>
         </form>
       </div>
     );

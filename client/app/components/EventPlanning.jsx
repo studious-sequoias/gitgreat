@@ -38,7 +38,6 @@ class EventPlanning extends React.Component {
     return (
       <div>
         <Nav />
-        <h1 className="eventHeader">{this.state.event.name} | {this.state.event.where} | {this.state.event.when}</h1>
         <FeatureNavigation/>
         {this.props.children}
       </div>

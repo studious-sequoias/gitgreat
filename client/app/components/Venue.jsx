@@ -5,43 +5,45 @@ import $ from 'jquery';
 
 
 class Venue extends React.Component{
-	constructor(props) {
-		super(props);
-		this.state = {
-			google: window.google,
-			coord: {lat: 37.783705, lng: -122.408977}
-		};
-	};
 
-	componentDidMount() {
-		$.get('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=', function(resp) {
-			console.log(this.state.coord,'coooord')
-			console.log(resp.results[0].geometry.location, "GET response");
-			this.setState({
-				coord: resp.results[0].geometry.location
-			}); 
-			console.log(this.state.coord, "!!!!!!")
-		}.bind(this))
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      google: window.google,
+      coord: {lat: 37.783705, lng: -122.408977}
+    };
+  };
 
-	render() {
-		return (
-			<Map google={window.google}
-				 style={{width: '750px', height: '500px', position: 'relative'}}
-				 className={'map'}
-				 zoom={14}
-				 initialCenter={{lat: this.state.coord.lat,lng: this.state.coord.lng}}
-				 // onReady={console.log}
-				 >
-				<Marker />
-			</Map>
-			)
-	};
+  componentDidMount() {
+    $.get('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=', function(resp) {
+      console.log(this.state.coord,'coooord')
+      console.log(resp.results[0].geometry.location, "GET response");
+      this.setState({
+        coord: resp.results[0].geometry.location
+      });
+      console.log(this.state.coord, "!!!!!!")
+    }.bind(this))
+  }
+
+  render() {
+    return (
+      <Map google={window.google}
+         style={{width: '750px', height: '500px', position: 'relative'}}
+         className={'map'}
+         zoom={14}
+         initialCenter={{lat: this.state.coord.lat,lng: this.state.coord.lng}}
+         // onReady={console.log}
+         >
+        <Marker />
+      </Map>
+      )
+  };
 };
 
 // HR: {lat: 37.783705, lng: -122.408977}
 // Google: {lat: 37.4223664, lng: -122.084406}
-export default Venue;	
+
+export default Venue;
 
 // Map.defaultProps = {
 //   zoom: 14,
@@ -62,7 +64,7 @@ export default Venue;
 // import {withGoogleMap, GoogleMap, Marker} from 'react-google-maps';
 
 // const Venue = withGoogleMap(props => (
-// 	<GoogleMap
+//  <GoogleMap
 //     ref={props.onMapLoad}
 //     defaultZoom={3}
 //     defaultCenter={{ lat: -25.363882, lng: 131.044922 }}
@@ -79,7 +81,7 @@ export default Venue;
 
 
 // export default class Venue extends Component {
-// 	state = {
+//  state = {
 //     markers: [{
 //       position: {
 //         lat: 25.0112183,
@@ -156,6 +158,3 @@ export default Venue;
 //     );
 //   }
 // }
-
-
-
