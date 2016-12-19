@@ -28,7 +28,7 @@ class Reminders extends React.Component {
   fetchReminders() {
     //The event name is passed along to the server via query parameters
     //so that we can display reminders associated with a specific event.
-    var eventParam = browserHistory.event.name.split(' ').join('_');
+    var eventParam = sessionStorage.getItem('eventId');
     var successHandler = function(data) {
       this.setState({reminders: data});
     };
@@ -56,7 +56,7 @@ class Reminders extends React.Component {
       $('#msg').text('reminder successfully posted');
       this.fetchReminders();
     };
-    var eventParam = browserHistory.event.name.split(' ').join('_');
+    var eventParam = sessionStorage.getItem('eventId');
     $.ajax({
       method: 'POST',
       url: '/reminders?eventName=' + eventParam,

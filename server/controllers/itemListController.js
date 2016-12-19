@@ -6,7 +6,7 @@ module.exports = {
 
   itemsPost: function(req, res, next) {
     var eventName = url.parse(req.url).query.slice(10).split('_').join(' ');
-    dbModels.EventsTable.findOne({where: {name: eventName}})
+    dbModels.EventsTable.findOne({where: {id: eventName}})
       .then(function(event) {
         var eventId = event.id;
         dbModels.ItemsTable
@@ -26,7 +26,7 @@ module.exports = {
 
   itemsGet: function(req, res, next) {
     var eventName = url.parse(req.url).query.slice(10).split('_').join(' ');
-    dbModels.EventsTable.findOne({where: {name: eventName}})
+    dbModels.EventsTable.findOne({where: {id: eventName}})
       .then(function(event) {
         var eventId = event.id;
         dbModels.ItemsTable.findAll({where: {eventId: eventId}})
