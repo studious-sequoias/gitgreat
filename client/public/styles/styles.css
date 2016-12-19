@@ -16,6 +16,10 @@ body {
   text-align: center;
 }
 
+#signup {
+  text-align: center;
+}
+
 .row {
   display: flex;
   flex-direction: column;
@@ -246,6 +250,14 @@ tr:nth-child(even) {
   margin-left: 45%;
 }
 
+
+/* * * * * * * * * *
+ *                 *
+ *      Misc       *
+ *                 *
+ * * * * * * * * * */
+
+
 .inviteForm {
   top: 20px;
   margin-left: 25%;
@@ -303,4 +315,9 @@ h2 {
 
 input {
   padding: 8px;
+}
+
+.map {
+  margin-left: 14%;
+  padding-top: 15px;
 }

@@ -4,7 +4,7 @@ import {Map, Marker, mapCenter} from 'google-maps-react';
 import $ from 'jquery';
 
 
-class Venue extends React.Component{
+class Venue extends React.Component {
 
   constructor(props) {
     super(props);
@@ -12,33 +12,32 @@ class Venue extends React.Component{
       google: window.google,
       coord: {lat: 37.783705, lng: -122.408977}
     };
-  };
+  }
 
   componentDidMount() {
     $.get('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=', function(resp) {
-      console.log(this.state.coord,'coooord')
-      console.log(resp.results[0].geometry.location, "GET response");
       this.setState({
         coord: resp.results[0].geometry.location
       });
-      console.log(this.state.coord, "!!!!!!")
-    }.bind(this))
+    }.bind(this));
   }
 
   render() {
     return (
-      <Map google={window.google}
-         style={{width: '750px', height: '500px', position: 'relative'}}
-         className={'map'}
-         zoom={14}
-         initialCenter={{lat: this.state.coord.lat,lng: this.state.coord.lng}}
-         // onReady={console.log}
-         >
-        <Marker />
-      </Map>
-      )
-  };
-};
+      <div className="map">
+        <Map google={window.google}
+           style={{width: '750px', height: '500px', position: 'relative'}}
+           className={'map'}
+           zoom={14}
+           initialCenter={{lat: this.state.coord.lat, lng: this.state.coord.lng}}
+           // onReady={console.log}
+           >
+          <Marker />
+        </Map>
+      </div>
+    );
+  }
+}
 
 // HR: {lat: 37.783705, lng: -122.408977}
 // Google: {lat: 37.4223664, lng: -122.084406}
